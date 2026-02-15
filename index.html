@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asia Trip 2026 — Iker & Anais</title>
+  <meta name="description" content="Dashboard del viaje a Asia 2026 — Shanghai, Taipei, Bangkok, Krabi, Xi'an, Beijing">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06060e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Ambient Background -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app">
+    <!-- ═══════ HERO (always visible) ═══════ -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-badge fade-in">
+          <span class="dot"></span>
+          12 Mar – 8 Abr 2026
+        </div>
+        <h1 class="fade-in stagger-1">Asia Trip 2026</h1>
+        <p class="hero-dates fade-in stagger-2">Shanghai · Taipei · Bangkok · Krabi · Xi'an · Beijing</p>
+        <p class="hero-travelers fade-in stagger-3">
+          👨 <span>Iker</span> &nbsp;&amp;&nbsp; 👩 <span>Anais</span> — 27 días de aventura
+        </p>
+        <a href="setup.html" class="hero-edit-link fade-in stagger-3"
+          style="display:inline-block;margin-top:0.5rem;color:rgba(148,163,184,0.6);font-size:0.8rem;text-decoration:none;transition:color 0.2s"
+          onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='rgba(148,163,184,0.6)'">✏️ Editar
+          viaje</a>
+        <div class="countdown fade-in stagger-4" id="countdown">
+          <div class="countdown-item glass">
+            <div class="countdown-value" id="cd-days">—</div>
+            <div class="countdown-label">Días</div>
+          </div>
+          <div class="countdown-item glass">
+            <div class="countdown-value" id="cd-hours">—</div>
+            <div class="countdown-label">Horas</div>
+          </div>
+          <div class="countdown-item glass">
+            <div class="countdown-value" id="cd-mins">—</div>
+            <div class="countdown-label">Min</div>
+          </div>
+          <div class="countdown-item glass">
+            <div class="countdown-value" id="cd-secs">—</div>
+            <div class="countdown-label">Seg</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ ROUTE TIMELINE (always visible) ═══════ -->
+    <section id="route">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(241,196,15,0.1)">🗺️</div>
+          <h2 class="section-title">Ruta del viaje</h2>
+        </div>
+        <div class="route-timeline" id="route-timeline"></div>
+      </div>
+    </section>
+
+    <!-- ═══════ STATS (always visible) ═══════ -->
+    <section>
+      <div class="container">
+        <div class="stats-bar">
+          <div class="stat-item glass">
+            <div class="stat-value" id="stat-days">—</div>
+            <div class="stat-label">Días</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-value" id="stat-flights">—</div>
+            <div class="stat-label">Vuelos</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-value" id="stat-hotels">—</div>
+            <div class="stat-label">Hoteles</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-value" id="stat-countries">—</div>
+            <div class="stat-label">Países</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-value" id="stat-cities">—</div>
+            <div class="stat-label">Ciudades</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ═══════ TAB PANELS ═══════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <!-- ────── TAB 1: DASHBOARD ────── -->
+    <div class="tab-panel active" data-tab="dashboard">
+
+      <!-- AGENDA -->
+      <section id="agenda">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(155,89,182,0.1)">📅</div>
+            <h2 class="section-title">Agenda diaria</h2>
+          </div>
+          <div class="agenda-grid" id="agenda-grid"></div>
+        </div>
+      </section>
+
+      <!-- CHECK-IN ALERTS -->
+      <section id="checkin">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(231,76,60,0.1)">⏰</div>
+            <h2 class="section-title">Alertas de Check-in</h2>
+          </div>
+          <div class="checkin-alerts-grid" id="checkin-alerts"></div>
+        </div>
+      </section>
+
+      <!-- TODOS -->
+      <section id="todos">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(46,204,113,0.1)">📋</div>
+            <h2 class="section-title">Pendiente</h2>
+          </div>
+          <div class="todo-list" id="todo-list"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ────── TAB 2: VIAJES ────── -->
+    <div class="tab-panel" data-tab="viajes">
+
+      <!-- FLIGHTS -->
+      <section id="flights">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(52,152,219,0.1)">✈️</div>
+            <h2 class="section-title">Vuelos y Transportes</h2>
+          </div>
+          <div class="flights-grid" id="flights-grid"></div>
+        </div>
+      </section>
+
+      <!-- HOTELS -->
+      <section id="hotels">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(155,89,182,0.1)">🏨</div>
+            <h2 class="section-title">Alojamientos</h2>
+          </div>
+          <div class="hotels-grid" id="hotels-grid"></div>
+        </div>
+      </section>
+
+      <!-- AIRPORT TRANSPORT -->
+      <section id="transport">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(52,152,219,0.1)">🚕</div>
+            <h2 class="section-title">Aeropuerto → Hotel</h2>
+          </div>
+          <div class="transport-grid" id="transport-grid"></div>
+        </div>
+      </section>
+
+      <!-- METRO -->
+      <section id="metro">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(52,152,219,0.1)">🚇</div>
+            <h2 class="section-title">Transporte Urbano</h2>
+          </div>
+          <div class="metro-grid" id="metro-grid"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ────── TAB 3: EXPLORAR ────── -->
+    <div class="tab-panel" data-tab="explorar">
+
+      <!-- CITY EXPLORER -->
+      <section id="city-explorer">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">🏙️</div>
+            <h2 class="section-title">Explora tus destinos</h2>
+          </div>
+          <div class="city-selector" id="city-selector"></div>
+          <div class="city-detail" id="city-detail"></div>
+        </div>
+      </section>
+
+      <!-- MAP -->
+      <section id="map-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(26,188,156,0.1)">📍</div>
+            <h2 class="section-title">Mapa de la ruta</h2>
+          </div>
+          <div class="map-wrapper">
+            <div id="map"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WEATHER + TIMEZONE -->
+      <section id="weather">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">⛅</div>
+            <h2 class="section-title">Clima y Husos Horarios</h2>
+          </div>
+          <h3 class="subsection-title">🌡️ Clima previsto por ciudad</h3>
+          <div class="weather-grid" id="weather-grid"></div>
+          <h3 class="subsection-title" style="margin-top:32px">🕐 Hora actual en destinos</h3>
+          <div class="timezone-grid" id="timezone-grid"></div>
+        </div>
+      </section>
+
+      <!-- BUCKET LIST -->
+      <section id="bucket">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">🎯</div>
+            <h2 class="section-title">Bucket List</h2>
+          </div>
+          <div id="bucket-grid"></div>
+        </div>
+      </section>
+
+      <!-- ACTIVITIES -->
+      <section id="activities">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(231,76,60,0.1)">🎫</div>
+            <h2 class="section-title">Actividades y Entradas</h2>
+          </div>
+          <div class="activities-grid" id="activities-grid"></div>
+        </div>
+      </section>
+
+      <!-- PHRASES -->
+      <section id="phrases">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">🗣️</div>
+            <h2 class="section-title">Frases útiles</h2>
+          </div>
+          <div class="phrases-grid" id="phrases-grid"></div>
+        </div>
+      </section>
+
+      <!-- FOOD GUIDE -->
+      <section id="food-guide">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(231,76,60,0.1)">🍜</div>
+            <h2 class="section-title">Guía gastronómica</h2>
+          </div>
+          <div id="food-grid"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ────── TAB 4: PREPARAR ────── -->
+    <div class="tab-panel" data-tab="preparar">
+
+      <!-- PACKING LIST -->
+      <section id="packing">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(46,204,113,0.1)">🧳</div>
+            <h2 class="section-title">Lista de equipaje</h2>
+          </div>
+          <div id="packing-grid"></div>
+        </div>
+      </section>
+
+      <!-- DOCUMENT VAULT -->
+      <section id="vault">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(155,89,182,0.1)">📄</div>
+            <h2 class="section-title">Bóveda de documentos</h2>
+          </div>
+          <div id="vault-grid"></div>
+        </div>
+      </section>
+
+      <!-- eSIM / VPN GUIDE -->
+      <section id="esim">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(52,152,219,0.1)">📶</div>
+            <h2 class="section-title">eSIM & VPN</h2>
+          </div>
+          <div id="esim-grid"></div>
+        </div>
+      </section>
+
+      <!-- APPS CHECKLIST -->
+      <section id="apps">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(155,89,182,0.1)">📱</div>
+            <h2 class="section-title">Apps imprescindibles</h2>
+          </div>
+          <div id="apps-grid"></div>
+        </div>
+      </section>
+
+      <!-- SCAMS / TIPS -->
+      <section id="tips">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(231,76,60,0.1)">⚠️</div>
+            <h2 class="section-title">Tips & Scams</h2>
+          </div>
+          <div id="tips-grid"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ────── TAB 5: DINERO ────── -->
+    <div class="tab-panel" data-tab="dinero">
+
+      <!-- CURRENCY -->
+      <section id="currency">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">💱</div>
+            <h2 class="section-title">Cambio de Divisas</h2>
+          </div>
+          <div id="currency-content"></div>
+        </div>
+      </section>
+
+      <!-- EXPENSE TRACKER -->
+      <section id="expenses">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(46,204,113,0.1)">💸</div>
+            <h2 class="section-title">Gastos del viaje</h2>
+          </div>
+          <div id="expenses-grid"></div>
+        </div>
+      </section>
+
+      <!-- BUDGET -->
+      <section id="budget">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(241,196,15,0.1)">💰</div>
+            <h2 class="section-title">Presupuesto</h2>
+          </div>
+          <div class="budget-total glass">
+            <div class="budget-amount" id="budget-total">—</div>
+            <div class="budget-label">Total registrado</div>
+          </div>
+          <div class="budget-items" id="budget-items"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══════ EMERGENCY MODAL (hidden by default) ═══════ -->
+    <div class="emergency-modal" id="emergency-modal" style="display:none">
+      <div class="emergency-modal-overlay" onclick="toggleEmergency()"></div>
+      <div class="emergency-modal-content glass">
+        <div class="emergency-modal-header">
+          <h2>🆘 Emergencias</h2>
+          <button onclick="toggleEmergency()" class="emergency-close">✕</button>
+        </div>
+        <div class="emergency-grid" id="emergency-grid"></div>
+      </div>
+    </div>
+
+    <!-- ═══════ FOOTER ═══════ -->
+    <footer class="footer">
+      <p>🌏 Asia Trip 2026 — Iker & Anais — 27 días de aventura</p>
+    </footer>
+  </div>
+
+  <!-- ═══════ FLOATING EMERGENCY BUTTON ═══════ -->
+  <button class="sos-fab" onclick="toggleEmergency()" title="Emergencias">🆘</button>
+
+  <!-- ═══════ TAB NAV ═══════ -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">Inicio</span>
+    </button>
+    <button class="tab-btn" data-tab="viajes" onclick="switchTab('viajes')">
+      <span class="tab-icon">✈️</span>
+      <span class="tab-label">Viajes</span>
+    </button>
+    <button class="tab-btn" data-tab="explorar" onclick="switchTab('explorar')">
+      <span class="tab-icon">🗺️</span>
+      <span class="tab-label">Explorar</span>
+    </button>
+    <button class="tab-btn" data-tab="preparar" onclick="switchTab('preparar')">
+      <span class="tab-icon">🎒</span>
+      <span class="tab-label">Preparar</span>
+    </button>
+    <button class="tab-btn" data-tab="dinero" onclick="switchTab('dinero')">
+      <span class="tab-icon">💰</span>
+      <span class="tab-label">Dinero</span>
+    </button>
+  </nav>
+
+  <!-- Data files (load first — no dependencies) -->
+  <script src="js/data/trip.js"></script>
+  <script src="js/data/guides.js"></script>
+  <script src="js/data/transport.js"></script>
+  <script src="js/data/reference.js"></script>
+
+  <!-- Utilities -->
+  <script src="js/utils/helpers.js"></script>
+
+  <!-- Components -->
+  <script src="js/components/countdown.js"></script>
+  <script src="js/components/flights.js"></script>
+  <script src="js/components/hotels.js"></script>
+  <script src="js/components/transport.js"></script>
+  <script src="js/components/weather.js"></script>
+  <script src="js/components/finance.js"></script>
+  <script src="js/components/prepare.js"></script>
+  <script src="js/components/explore.js"></script>
+
+  <!-- App orchestrator (init + tab system) -->
+  <script src="app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1869 @@
+// ═══════════════════ TRIP DATA ═══════════════════
+const TRIP_DATA = {
+  trip: { name: "Asia Trip 2026", startDate: "2026-03-12", endDate: "2026-04-08", totalDays: 27 },
+  travelers: [
+    { name: "Iker Fernandez Caballero", emoji: "👨" },
+    { name: "Xo Anais Moragon Garcia", emoji: "👩" }
+  ],
+  cities: [
+    { id: "shanghai", name: "Shanghai", country: "China", cc: "cn", flag: "🇨🇳", start: "2026-03-13", end: "2026-03-16", nights: 3, lat: 31.2304, lng: 121.4737 },
+    { id: "taipei", name: "Taipei", country: "Taiwan", cc: "tw", flag: "🇹🇼", start: "2026-03-16", end: "2026-03-19", nights: 3, lat: 25.033, lng: 121.5654 },
+    { id: "bangkok1", name: "Bangkok", country: "Thailand", cc: "th", flag: "🇹🇭", start: "2026-03-19", end: "2026-03-20", nights: 1, lat: 13.7563, lng: 100.5018, note: "Transit" },
+    { id: "krabi", name: "Krabi", country: "Thailand", cc: "th", flag: "🇹🇭", start: "2026-03-20", end: "2026-03-29", nights: 9, lat: 8.0363, lng: 98.8362, note: "Ao Nang 🏖️" },
+    { id: "bangkok2", name: "Bangkok", country: "Thailand", cc: "th", flag: "🇹🇭", start: "2026-03-29", end: "2026-03-30", nights: 1, lat: 13.7563, lng: 100.5018, note: "Transit" },
+    { id: "xian", name: "Xi'an", country: "China", cc: "cn", flag: "🇨🇳", start: "2026-03-31", end: "2026-04-02", nights: 2, lat: 34.3416, lng: 108.9398 },
+    { id: "beijing", name: "Beijing", country: "China", cc: "cn", flag: "🇨🇳", start: "2026-04-02", end: "2026-04-07", nights: 5, lat: 39.9042, lng: 116.4074 }
+  ],
+  flights: [
+    { label: "Madrid → Shanghai", date: "12 Mar", segments: [{ dep: "10:25", arr: "10:30+1", from: "MAD", fromCity: "Madrid", to: "PVG", toCity: "Shanghai", flight: "HU728 + HU7494", airline: "Hainan Airlines", dur: "14h 10min (escala CKG)", seats: "58E/G · 43B/C" }], ref: "NKX5J4", status: "confirmed", cc: "cn", type: "flight", manageUrl: "https://www.hainanairlines.com/builder/GoPage?type=manage", checkinTip: "Check-in online 24h antes · Ref: NKX5J4 + Apellido" },
+    { label: "Shanghai → Taipei", date: "16 Mar", segments: [{ dep: "08:25", arr: "10:30", from: "PVG", fromCity: "Shanghai", to: "TPE", toCity: "Taipei", flight: "9C8951", airline: "Spring Airlines", dur: "2h 5min", seats: "—" }], ref: "1433808606921603", price: "136,74€", status: "confirmed", cc: "tw", type: "flight", manageUrl: "https://flights.ch.spring.com/OrderSearch", checkinTip: "Usar nº pedido 1433808606921603 en Spring Airlines" },
+    { label: "Taipei → Bangkok", date: "19 Mar", segments: [{ dep: "18:35", arr: "21:30", from: "TPE", fromCity: "Taipei", to: "DMK", toCity: "Bangkok", flight: "FD231", airline: "Thai AirAsia", dur: "3h 55min", seats: "—" }], ref: "IHI3HH", status: "confirmed", cc: "th", type: "flight", manageUrl: "https://www.airasia.com/check-in/en/gb?bookingId=IHI3HH", checkinTip: "Poner ref IHI3HH + apellido FERNANDEZ · 14 días antes" },
+    { label: "Bangkok → Krabi", date: "20 Mar", segments: [{ dep: "07:05", arr: "08:30", from: "BKK", fromCity: "Bangkok", to: "KBV", toCity: "Krabi", flight: "VZ340", airline: "Thai VietJet Air", dur: "1h 25min", seats: "—" }], ref: "4Z44R2", status: "confirmed", cc: "th", type: "flight", manageUrl: "https://www.vietjetair.com/en/manage-booking", checkinTip: "Ref: 4Z44R2 · Check-in 24h antes en web o app" },
+    { label: "Krabi → Bangkok", date: "29 Mar", segments: [{ dep: "10:50", arr: "12:10", from: "KBV", fromCity: "Krabi", to: "DMK", toCity: "Bangkok", flight: "FD3230", airline: "Thai AirAsia", dur: "1h 20min", seats: "—" }], ref: "NGUN2K", status: "confirmed", cc: "th", type: "flight", manageUrl: "https://www.airasia.com/check-in/en/gb?bookingId=NGUN2K", checkinTip: "Poner ref NGUN2K + apellido FERNANDEZ · 14 días antes" },
+    { label: "Bangkok → Xi'an", date: "30 Mar", segments: [{ dep: "20:00", arr: "00:35+1", from: "DMK", fromCity: "Bangkok", to: "XIY", toCity: "Xi'an", flight: "SL950", airline: "Thai Lion Air", dur: "3h 35min", seats: "—" }], ref: "OHSEFR", status: "confirmed", cc: "cn", type: "flight", manageUrl: "https://www.lionairthai.com/en/manage-booking", checkinTip: "Ref: OHSEFR · Descargar app Lion Air para boarding pass" },
+    { label: "Xi'an → Beijing", date: "~2 Abr", segments: [{ dep: "TBD", arr: "TBD", from: "XIY", fromCity: "Xi'an", to: "PKX", toCity: "Beijing", flight: "Tren Bala 🚄", airline: "China Railway", dur: "~4h 30min", seats: "—" }], ref: "Pendiente", status: "pending", cc: "cn", type: "train", manageUrl: "https://www.trip.com/trains/" },
+    { label: "Beijing → Madrid", date: "7 Abr", segments: [{ dep: "14:15", arr: "10:05+1", from: "PKX", fromCity: "Beijing", to: "MAD", toCity: "Madrid", flight: "CZ0345 + IB0740", airline: "China Southern + Iberia", dur: "25h 50min (escala AMS)", seats: "—" }], ref: "NKZ9RH / JJMFL", status: "confirmed", cc: "multi", type: "flight", manageUrl: "https://www.iberia.com/es/gestionar-reserva/", checkinTip: "Iberia: check-in 24h antes · CZ tramo Pekín-AMS, Iberia AMS-MAD" }
+  ],
+  hotels: [
+    { name: "Shanghai Yuhang Hotel", city: "Shanghai", cc: "cn", checkIn: "13 Mar", checkOut: "16 Mar", nights: 3, status: "confirmed", address: "525 Sichuan North Rd", ref: "623036703", platform: "Agoda", mapUrl: "https://maps.google.com/?q=Shanghai+Yuhang+Hotel", bookingUrl: "https://www.agoda.com/account/bookings.html" },
+    { name: "Pendiente de reserva", city: "Taipei", cc: "tw", checkIn: "16 Mar", checkOut: "19 Mar", nights: 3, status: "pending", address: "—", ref: "—", platform: "—" },
+    { name: "Cozy Blu Suvarnabhumi", city: "Bangkok", cc: "th", checkIn: "19 Mar", checkOut: "20 Mar", nights: 1, status: "confirmed", address: "Racha Thewa, Samut Prakan", ref: "Trip.com", platform: "Trip.com", price: "24,02€", extras: ["🍳 Desayuno incluido"], mapUrl: "https://maps.google.com/?q=Cozy+Blu+Suvarnabhumi", bookingUrl: "https://www.trip.com/orders/" },
+    { name: "Ao Nang Goodwill Hotel", city: "Krabi", cc: "th", checkIn: "20 Mar", checkOut: "29 Mar", nights: 9, status: "confirmed", address: "420/22 Moo2, Ao Nang", ref: "Trip.com", platform: "Trip.com", extras: ["🍈 No durian allowed!"], mapUrl: "https://maps.google.com/?q=Ao+Nang+Goodwill+Hotel", bookingUrl: "https://www.trip.com/orders/" },
+    { name: "Hotel Chakrabongse", city: "Bangkok", cc: "th", checkIn: "29 Mar", checkOut: "30 Mar", nights: 1, status: "confirmed", address: "33-35 Chakrabongse Rd", ref: "Trip.com", platform: "Trip.com", extras: ["💰 Depósito 500 THB"], mapUrl: "https://maps.google.com/?q=33-35+Chakrabongse+Rd+Bangkok", bookingUrl: "https://www.trip.com/orders/" },
+    { name: "Airport Space Capsule Hotel", city: "Xi'an (aeropuerto)", cc: "cn", checkIn: "30 Mar", checkOut: "31 Mar", nights: 1, status: "confirmed", address: "Gate 312, 1F, T3, Xianyang Airport", ref: "Booking.com", platform: "Booking.com", extras: ["✈️ Dentro del aeropuerto", "⏰ Check-in 14:00 / Check-out 10:00"], mapUrl: "https://maps.google.com/?q=Xianyang+Airport+T3+Xian", bookingUrl: "https://secure.booking.com/myreservations.html" },
+    { name: "Campanile Hotel Bell Tower", city: "Xi'an", cc: "cn", checkIn: "31 Mar", checkOut: "2 Abr", nights: 2, status: "confirmed", address: "No.8 Zhengxue Street, 710001", ref: "Booking.com", platform: "Booking.com", extras: ["⭐ 4 estrellas", "🚇 Junto a estación metro"], mapUrl: "https://maps.google.com/?q=Campanile+Hotel+Xian+Bell+Tower", bookingUrl: "https://secure.booking.com/myreservations.html" },
+    { name: "Pendiente de reserva", city: "Beijing", cc: "cn", checkIn: "2 Abr", checkOut: "7 Abr", nights: 5, status: "pending", address: "—", ref: "—", platform: "—" },
+    { name: "Hotel Ben Centre", city: "Ámsterdam (escala)", cc: "multi", checkIn: "7 Abr", checkOut: "8 Abr", nights: 1, status: "confirmed", address: "7 Beursstraat, 1012 JT", ref: "5506753815", platform: "Booking.com", extras: ["📞 +31 20626370", "⏰ Check-in 12:00 / Check-out 10:30"], mapUrl: "https://maps.google.com/?q=7+Beursstraat+Amsterdam", bookingUrl: "https://secure.booking.com/myreservations.html" }
+  ],
+  activities: [
+    { name: "Plaza de Tiananmén", city: "Beijing", date: "4 Abr 2026", status: "confirmed", icon: "🏛️" },
+    { name: "Guerreros de Terracota", city: "Xi'an", date: "Por planificar", status: "planned", icon: "🗿" },
+    { name: "Gran Muralla China", city: "Beijing", date: "Por planificar", status: "planned", icon: "🏔️" },
+    { name: "Ciudad Prohibida", city: "Beijing", date: "Por planificar", status: "planned", icon: "🏯" }
+  ],
+  todos: [
+    { text: "Comprar hotel Taipei (16-19 Mar, 3 noches)", priority: "high", done: false },
+    { text: "Comprar hotel Beijing (2-7 Abr, 5 noches)", priority: "high", done: false },
+    { text: "Compartir datos hotel Xi'an", priority: "medium", done: true },
+    { text: "Comprar billetes tren bala Xi'an → Beijing", priority: "high", done: false },
+    { text: "Registrar todos los costes", priority: "low", done: false },
+    { text: "Revisar equipaje permitido por aerolínea", priority: "medium", done: false }
+  ],
+  budget: [
+    { concept: "Vuelo Shanghai → Taipei", amount: 136.74 },
+    { concept: "Hotel Cozy Blu Suvarnabhumi", amount: 24.02 }
+  ]
+};
+
+// ═══════════════════ COUNTDOWN ═══════════════════
+function updateCountdown() {
+  const now = new Date();
+  const dep = new Date('2026-03-12T10:25:00+01:00');
+  const diff = dep - now;
+  if (diff <= 0) { document.getElementById('countdown').innerHTML = '<div class="countdown-item glass"><div class="countdown-value">🎉</div><div class="countdown-label">¡En viaje!</div></div>'; return; }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = d;
+  document.getElementById('cd-hours').textContent = h;
+  document.getElementById('cd-mins').textContent = m;
+  document.getElementById('cd-secs').textContent = s;
+}
+
+// ═══════════════════ ROUTE TIMELINE ═══════════════════
+function renderTimeline() {
+  const el = document.getElementById('route-timeline');
+  const origin = `<div class="route-stop"><div class="stop-dot" style="background:rgba(52,152,219,0.15);border:2px solid #3498db">🇪🇸</div><div class="stop-name">Madrid</div><div class="stop-dates">12 Mar</div><div class="stop-nights">Salida</div></div>`;
+  const cities = TRIP_DATA.cities.map(c => `<div class="route-stop"><div class="stop-dot ${c.cc}">${c.flag}</div><div class="stop-name">${c.name}</div><div class="stop-dates">${formatRange(c.start, c.end)}</div><div class="stop-nights">${c.nights} noche${c.nights > 1 ? 's' : ''}</div></div>`).join('');
+  const dest = `<div class="route-stop"><div class="stop-dot" style="background:rgba(52,152,219,0.15);border:2px solid #3498db">🇪🇸</div><div class="stop-name">Madrid</div><div class="stop-dates">8 Abr</div><div class="stop-nights">Vuelta</div></div>`;
+  el.innerHTML = origin + cities + dest;
+}
+
+function formatRange(s, e) {
+  const sd = new Date(s), ed = new Date(e);
+  const m = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  return `${sd.getDate()} – ${ed.getDate()} ${m[sd.getMonth()]}`;
+}
+
+// Check-in window config per airline
+function getCheckinConfig(airline) {
+  if (!airline) return { days: 1, label: '24h antes' };
+  const a = airline.toLowerCase();
+  if (a.includes('airasia')) return { days: 14, label: '14 días antes' };
+  if (a.includes('spring')) return { days: 1, label: '24h antes' };
+  if (a.includes('hainan')) return { days: 1, label: '24h antes' };
+  if (a.includes('vietjet')) return { days: 1, label: '24h antes' };
+  if (a.includes('lion')) return { days: 1, label: '24h antes' };
+  if (a.includes('iberia') || a.includes('southern')) return { days: 1, label: '24h antes' };
+  return { days: 1, label: '24h antes' };
+}
+
+function getFlightFullDate(dateStr) {
+  // Parse "12 Mar", "~2 Abr" etc.
+  const months = { 'Ene': 0, 'Feb': 1, 'Mar': 2, 'Abr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Ago': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dic': 11 };
+  const clean = dateStr.replace('~', '').trim();
+  const parts = clean.split(' ');
+  if (parts.length < 2) return null;
+  const day = parseInt(parts[0]);
+  const month = months[parts[1]];
+  if (isNaN(day) || month === undefined) return null;
+  return new Date(2026, month, day);
+}
+
+function renderFlights() {
+  const el = document.getElementById('flights-grid');
+  const now = new Date();
+  const savedQR = JSON.parse(localStorage.getItem('flight_qr_data') || '{}');
+
+  el.innerHTML = TRIP_DATA.flights.map(f => {
+    const s = f.segments[0];
+    const isTrainClass = f.type === 'train' ? ' train' : '';
+
+    // Check-in info
+    let checkinHTML = '';
+    if (f.type !== 'train' && f.status === 'confirmed') {
+      const config = getCheckinConfig(s.airline);
+      const flightDate = getFlightFullDate(f.date);
+
+      if (flightDate) {
+        const daysUntilFlight = Math.ceil((flightDate - now) / 86400000);
+        const checkinOpensDate = new Date(flightDate);
+        checkinOpensDate.setDate(checkinOpensDate.getDate() - config.days);
+        const daysUntilCheckin = Math.ceil((checkinOpensDate - now) / 86400000);
+
+        const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const opensStr = `${checkinOpensDate.getDate()} ${monthNames[checkinOpensDate.getMonth()]}`;
+
+        let urgency, urgencyLabel;
+        if (daysUntilCheckin <= 0) {
+          urgency = 'checkin-open';
+          urgencyLabel = '🟢 ¡CHECK-IN ABIERTO!';
+        } else if (daysUntilCheckin <= 3) {
+          urgency = 'checkin-soon';
+          urgencyLabel = `🟡 Abre en ${daysUntilCheckin}d`;
+        } else if (daysUntilCheckin <= 7) {
+          urgency = 'checkin-week';
+          urgencyLabel = `🔵 Abre en ${daysUntilCheckin}d`;
+        } else {
+          urgency = 'checkin-future';
+          urgencyLabel = `⏳ Abre en ${daysUntilCheckin}d`;
+        }
+
+        checkinHTML = `<div class="flight-checkin-info ${urgency}">
+          <div class="checkin-info-row">
+            <span class="checkin-info-window">📋 Check-in: <strong>${config.label}</strong></span>
+            <span class="checkin-info-opens">📅 Abre: <strong>${opensStr}</strong></span>
+          </div>
+          <div class="checkin-info-badge">${urgencyLabel}</div>
+        </div>`;
+      }
+    }
+
+    // QR data
+    const qrRef = f.ref.split(' / ')[0];
+    const hasQR = savedQR[qrRef];
+    const qrHTML = f.type !== 'train' ? `<div class="flight-qr-section">
+      ${hasQR ? `
+        <div class="flight-qr-data" onclick="toggleQRDetail('${qrRef}')">
+          <span class="qr-saved-badge">✅ QR guardado</span>
+          <span class="qr-view-btn">👁️ Ver datos</span>
+        </div>
+        <div class="flight-qr-detail" id="qr-detail-${qrRef}" style="display:none">
+          <pre class="qr-data-content">${hasQR}</pre>
+          <button class="qr-delete-btn" onclick="deleteQR('${qrRef}')">🗑️ Eliminar QR</button>
+        </div>
+      ` : `
+        <button class="qr-scan-btn" onclick="startQRScan('${qrRef}')">
+          📷 Escanear boarding pass
+        </button>
+      `}
+    </div>` : '';
+
+    return `<div class="flight-card glass ${f.cc}">
+      <div class="flight-header">
+        <div><div class="flight-label">${f.label}</div><div class="flight-date">${f.date}</div></div>
+        <span class="flight-badge ${f.status}">${f.status === 'confirmed' ? '✓ Confirmado' : '⏳ Pendiente'}</span>
+      </div>
+      <div class="flight-route">
+        <div class="flight-airport"><div class="flight-code">${s.from}</div><div class="flight-city">${s.fromCity}</div><div class="flight-time">${s.dep}</div></div>
+        <div class="flight-line"><div class="flight-line-bar${isTrainClass}"></div><div class="flight-duration">${s.dur}</div></div>
+        <div class="flight-airport"><div class="flight-code">${s.to}</div><div class="flight-city">${s.toCity}</div><div class="flight-time">${s.arr}</div></div>
+      </div>
+      <div class="flight-details">
+        <span class="flight-detail">${s.flight}</span>
+        <span class="flight-detail">${s.airline}</span>
+        ${s.seats !== '—' ? `<span class="flight-detail">🪑 ${s.seats}</span>` : ''}
+        <span class="flight-detail">📋 ${f.ref}</span>
+        ${f.price ? `<span class="flight-detail">💰 ${f.price}</span>` : ''}
+      </div>
+      ${checkinHTML}
+      ${f.manageUrl ? `<div class="card-actions">
+        <a href="${f.manageUrl}" target="_blank" class="action-btn action-checkin">${f.type === 'train' ? '🚄 Comprar billete' : '✈️ Check-in / Gestionar'}</a>
+        <span class="action-copy" onclick="navigator.clipboard.writeText('${f.ref.split(' / ')[0]}');this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='📋 Copiar ref',1500)" title="Copiar referencia">📋 Copiar ref</span>
+      </div>
+      ${f.checkinTip ? `<div class="checkin-tip">💡 ${f.checkinTip}</div>` : ''}` : ''}
+      ${qrHTML}
+    </div>`;
+  }).join('');
+}
+
+// QR Scanner functions
+function toggleQRDetail(ref) {
+  const el = document.getElementById('qr-detail-' + ref);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function deleteQR(ref) {
+  if (!confirm('¿Eliminar datos QR de este vuelo?')) return;
+  const saved = JSON.parse(localStorage.getItem('flight_qr_data') || '{}');
+  delete saved[ref];
+  localStorage.setItem('flight_qr_data', JSON.stringify(saved));
+  renderFlights();
+}
+
+function startQRScan(ref) {
+  // Create scanner modal
+  const modal = document.createElement('div');
+  modal.id = 'qr-scanner-modal';
+  modal.innerHTML = `
+    <div class="qr-scanner-overlay">
+      <div class="qr-scanner-container glass">
+        <div class="qr-scanner-header">
+          <span>📷 Escanear QR — ${ref}</span>
+          <button onclick="stopQRScan()" class="qr-close-btn">✕</button>
+        </div>
+        <video id="qr-video" autoplay playsinline></video>
+        <canvas id="qr-canvas" style="display:none"></canvas>
+        <div class="qr-scanner-status" id="qr-status">Iniciando cámara...</div>
+        <div class="qr-scanner-alt">
+          <label class="qr-upload-alt">
+            📁 O sube imagen del QR
+            <input type="file" accept="image/*" onchange="scanQRFromFile('${ref}', this)" hidden>
+          </label>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Start camera
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+    .then(stream => {
+      const video = document.getElementById('qr-video');
+      video.srcObject = stream;
+      window._qrStream = stream;
+      window._qrScanning = true;
+      window._qrRef = ref;
+      requestAnimationFrame(scanQRFrame);
+    })
+    .catch(err => {
+      document.getElementById('qr-status').textContent = '⚠️ No se pudo acceder a la cámara. Sube una imagen.';
+    });
+}
+
+function scanQRFrame() {
+  if (!window._qrScanning) return;
+  const video = document.getElementById('qr-video');
+  const canvas = document.getElementById('qr-canvas');
+  if (!video || !canvas || !video.videoWidth) {
+    requestAnimationFrame(scanQRFrame);
+    return;
+  }
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  if (typeof jsQR !== 'undefined') {
+    const code = jsQR(imageData.data, canvas.width, canvas.height);
+    if (code) {
+      saveQRData(window._qrRef, code.data);
+      stopQRScan();
+      return;
+    }
+  }
+
+  document.getElementById('qr-status').textContent = '🔍 Enfocando... Apunta al código QR';
+  requestAnimationFrame(scanQRFrame);
+}
+
+function scanQRFromFile(ref, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      if (typeof jsQR !== 'undefined') {
+        const code = jsQR(imageData.data, canvas.width, canvas.height);
+        if (code) {
+          saveQRData(ref, code.data);
+          stopQRScan();
+        } else {
+          document.getElementById('qr-status').textContent = '⚠️ No se encontró QR en la imagen. Intenta con otra.';
+        }
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveQRData(ref, data) {
+  const saved = JSON.parse(localStorage.getItem('flight_qr_data') || '{}');
+  saved[ref] = data;
+  localStorage.setItem('flight_qr_data', JSON.stringify(saved));
+  renderFlights();
+}
+
+function stopQRScan() {
+  window._qrScanning = false;
+  if (window._qrStream) {
+    window._qrStream.getTracks().forEach(t => t.stop());
+    window._qrStream = null;
+  }
+  const modal = document.getElementById('qr-scanner-modal');
+  if (modal) modal.remove();
+}
+
+// ═══════════════════ HOTELS ═══════════════════
+function renderHotels() {
+  const el = document.getElementById('hotels-grid');
+  el.innerHTML = TRIP_DATA.hotels.map(h => `<div class="hotel-card glass ${h.cc}">
+    <div class="flight-header">
+      <div><div class="hotel-name">${h.name}</div><div class="hotel-city">${h.city}</div></div>
+      <span class="flight-badge ${h.status}">${h.status === 'confirmed' ? '✓ Confirmado' : '⏳ Pendiente'}</span>
+    </div>
+    <div class="hotel-dates-row">
+      <span>${h.checkIn}</span>
+      <span class="arrow">→</span>
+      <span>${h.checkOut}</span>
+      <span class="hotel-nights-badge">${h.nights} noche${h.nights > 1 ? 's' : ''}</span>
+    </div>
+    <div class="hotel-info">
+      ${h.address !== '—' ? `<span class="hotel-tag">📍 ${h.address}</span>` : ''}
+      ${h.mapUrl ? `<a href="${h.mapUrl}" target="_blank" class="hotel-tag hotel-link">🗺️ Ver en mapa</a>` : ''}
+      ${h.platform !== '—' ? `<span class="hotel-tag">🔗 ${h.platform}</span>` : ''}
+      ${h.ref && h.ref !== '—' ? `<span class="hotel-tag">🔑 Ref: ${h.ref}</span>` : ''}
+      ${h.price ? `<span class="hotel-tag">💰 ${h.price}</span>` : ''}
+      ${(h.extras || []).map(e => `<span class="hotel-tag">${e}</span>`).join('')}
+    </div>
+    ${h.bookingUrl ? `<div class="card-actions"><a href="${h.bookingUrl}" target="_blank" class="action-btn action-booking">🔗 Ver reserva en ${h.platform}</a></div>` : ''}
+  </div>`).join('');
+}
+
+// ═══════════════════ ACTIVITIES ═══════════════════
+function renderActivities() {
+  const el = document.getElementById('activities-grid');
+  el.innerHTML = TRIP_DATA.activities.map(a => `<div class="activity-card glass">
+    <div class="activity-icon">${a.icon}</div>
+    <div class="activity-info"><div class="activity-name">${a.name}</div><div class="activity-meta">${a.city} · ${a.date}</div></div>
+    <span class="activity-status ${a.status}">${a.status === 'confirmed' ? '✓ Comprado' : '📝 Planear'}</span>
+  </div>`).join('');
+}
+
+// ═══════════════════ METRO DATA ═══════════════════
+const METRO_DATA = [
+  {
+    city: 'Shanghai', cc: 'cn', icon: '🚇', system: 'Shanghai Metro',
+    lines: '16 líneas, 508 estaciones',
+    card: { name: 'Shanghai Public Transport Card', price: '~20 CNY (depósito)', where: 'Máquinas en estaciones' },
+    priceRange: '3–10 CNY/viaje (~0,40–1,30€)',
+    useful: ['L2 → Aeropuerto Pudong', 'L10 → Nanjing Rd / Yu Garden', 'L1 → People\'s Square'],
+    tips: ['Se puede pagar con Alipay/WeChat Pay', 'Horario: 05:30 – 22:30', 'App: MetroMan (mapa offline)'],
+    appUrl: 'https://apps.apple.com/app/metroman/id466351020'
+  },
+  {
+    city: 'Taipei', cc: 'tw', icon: '🚇', system: 'Taipei MRT',
+    lines: '6 líneas, 131 estaciones',
+    card: { name: 'EasyCard (悠遊卡)', price: '100 TWD (~3€)', where: 'Convenience stores (7-Eleven, FamilyMart)' },
+    priceRange: '20–65 TWD/viaje (~0,60–1,90€)',
+    useful: ['Red Line → Aeropuerto Taoyuan (vía Taoyuan MRT)', 'Red/Green → Taipei 101', 'Blue → Longshan Temple'],
+    tips: ['Apple Pay funciona en torniquetes', 'EasyCard sirve para bus, YouBike y tiendas', 'Horario: 06:00 – 00:00'],
+    appUrl: null
+  },
+  {
+    city: 'Bangkok', cc: 'th', icon: '🚆', system: 'BTS Skytrain + MRT + Boats',
+    lines: 'BTS 2 líneas + MRT 2 líneas + Chao Phraya boats',
+    card: { name: 'Rabbit Card (BTS) / MRT Card', price: '~200 THB (~5€)', where: 'Taquillas BTS/MRT' },
+    priceRange: '16–59 THB/viaje (~0,40–1,50€)',
+    useful: ['BTS Sukhumvit → Siam, Asok, Mo Chit', 'BTS Silom → Saphan Taksin (boats)', 'MRT Blue → Chinatown, Hua Lamphong'],
+    tips: ['Grab (app tipo Uber) es muy barato', 'Tuk-tuks: negociar SIEMPRE antes', 'Boats por el río son geniales y baratos'],
+    appUrl: null
+  },
+  {
+    city: 'Xi\'an', cc: 'cn', icon: '🚇', system: 'Xi\'an Metro',
+    lines: '8 líneas, 191 estaciones',
+    card: { name: 'Xi\'an Transport Card / Alipay', price: 'Alipay gratis', where: 'App Alipay' },
+    priceRange: '2–7 CNY/viaje (~0,25–0,90€)',
+    useful: ['L2 → Estación tren (norte-sur)', 'L1 → Centro histórico', 'L3 → Guerreros Terracota (parcial)'],
+    tips: ['Alipay para pagar en metro y taxis', 'Bus 914/915 a Guerreros Terracota', 'Horario: 06:00 – 23:00'],
+    appUrl: null
+  },
+  {
+    city: 'Beijing', cc: 'cn', icon: '🚇', system: 'Beijing Subway',
+    lines: '27 líneas, 490 estaciones (¡la más grande del mundo!)',
+    card: { name: 'Yikatong Card / Alipay', price: '~20 CNY depósito', where: 'Máquinas en estaciones' },
+    priceRange: '3–10 CNY/viaje (~0,40–1,30€)',
+    useful: ['L1 → Tiananmén, Ciudad Prohibida', 'Airport Express → Daxing (PKX)', 'L2 → Circunvalación centro', 'L13/Changping → Gran Muralla (Badaling)'],
+    tips: ['Metro cierra ~23:00', 'Didi (app china tipo Uber)', 'Scanner de seguridad en TODAS las estaciones'],
+    appUrl: null
+  }
+];
+
+function renderMetro() {
+  const el = document.getElementById('metro-grid');
+  el.innerHTML = METRO_DATA.map(m => `<div class="metro-card glass ${m.cc}">
+    <div class="metro-header">
+      <div class="metro-icon-wrap ${m.cc}">${m.icon}</div>
+      <div>
+        <div class="metro-city">${m.city}</div>
+        <div class="metro-system">${m.system}</div>
+      </div>
+    </div>
+    <div class="metro-stat"><span class="metro-stat-label">Líneas</span><span class="metro-stat-value">${m.lines}</span></div>
+    <div class="metro-stat"><span class="metro-stat-label">Precio</span><span class="metro-stat-value">${m.priceRange}</span></div>
+    <div class="metro-stat"><span class="metro-stat-label">Tarjeta</span><span class="metro-stat-value">${m.card.name} (${m.card.price})</span></div>
+    <div class="metro-routes">
+      <div class="metro-routes-title">Líneas útiles:</div>
+      ${m.useful.map(u => `<div class="metro-route-item">→ ${u}</div>`).join('')}
+    </div>
+    <div class="metro-tips">
+      ${m.tips.map(t => `<span class="metro-tip">${t}</span>`).join('')}
+    </div>
+  </div>`).join('');
+}
+
+// ═══════════════════ CURRENCY EXCHANGE ═══════════════════
+const CURRENCIES = [
+  { code: 'CNY', name: 'Yuan Chino', symbol: '¥', flag: '🇨🇳', cities: 'Shanghai, Xi\'an, Beijing', color: '#e74c3c' },
+  { code: 'TWD', name: 'Dólar Taiwanés', symbol: 'NT$', flag: '🇹🇼', cities: 'Taipei', color: '#1abc9c' },
+  { code: 'THB', name: 'Baht Tailandés', symbol: '฿', flag: '🇹🇭', cities: 'Bangkok, Krabi', color: '#9b59b6' }
+];
+
+let exchangeRates = { CNY: null, TWD: null, THB: null };
+let lastRateUpdate = null;
+
+async function fetchExchangeRates() {
+  try {
+    const resp = await fetch('https://api.frankfurter.app/latest?from=EUR&to=CNY,TWD,THB');
+    const data = await resp.json();
+    exchangeRates = data.rates;
+    lastRateUpdate = new Date();
+    renderCurrency();
+  } catch (e) {
+    console.warn('Exchange rate API unavailable, using fallback rates');
+    exchangeRates = { CNY: 7.85, TWD: 35.2, THB: 38.5 };
+    lastRateUpdate = null;
+    renderCurrency();
+  }
+}
+
+function convertEUR(amount, currency) {
+  if (!exchangeRates[currency]) return '—';
+  return (amount * exchangeRates[currency]).toFixed(2);
+}
+
+function renderCurrency() {
+  const el = document.getElementById('currency-content');
+  const quickAmounts = [10, 20, 50, 100, 200];
+  const updateText = lastRateUpdate
+    ? `Actualizado: ${lastRateUpdate.toLocaleTimeString('es-ES')} (Frankfurter/BCE)`
+    : 'Tasas de referencia (sin conexión)';
+
+  el.innerHTML = `
+    <div class="currency-update glass">
+      <span class="currency-update-dot ${lastRateUpdate ? 'live' : 'offline'}"></span>
+      ${updateText}
+    </div>
+    <div class="currency-converter glass">
+      <div class="converter-input-wrap">
+        <label class="converter-label">Cantidad en EUR</label>
+        <div class="converter-input-row">
+          <span class="converter-symbol">€</span>
+          <input type="number" id="eur-input" class="converter-input" value="50" min="0" step="5" oninput="updateConversion()">
+        </div>
+      </div>
+      <div class="converter-results" id="converter-results">
+        ${CURRENCIES.map(c => `<div class="converter-result" style="border-left: 3px solid ${c.color}">
+          <div class="converter-result-header">
+            <span>${c.flag} ${c.code}</span>
+            <span class="converter-rate">1€ = ${exchangeRates[c.code] ? exchangeRates[c.code].toFixed(2) : '—'} ${c.symbol}</span>
+          </div>
+          <div class="converter-result-value">${c.symbol} ${convertEUR(50, c.code)}</div>
+          <div class="converter-result-cities">${c.cities}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="currency-table glass">
+      <div class="currency-table-title">Tabla de referencia rápida</div>
+      <table>
+        <thead><tr><th>EUR €</th>${CURRENCIES.map(c => `<th>${c.flag} ${c.code}</th>`).join('')}</tr></thead>
+        <tbody>
+          ${quickAmounts.map(a => `<tr>
+            <td><strong>${a}€</strong></td>
+            ${CURRENCIES.map(c => `<td>${c.symbol} ${convertEUR(a, c.code)}</td>`).join('')}
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div class="currency-tips">
+      <div class="currency-tip glass">💡 <strong>China:</strong> Alipay y WeChat Pay son imprescindibles. Activa Alipay Tour Pass antes de ir.</div>
+      <div class="currency-tip glass">💡 <strong>Taiwán:</strong> Cajeros Post Office ATM sin comisión. Tarjetas Visa/MC aceptadas en muchos sitios.</div>
+      <div class="currency-tip glass">💡 <strong>Tailandia:</strong> SuperRich exchange houses tienen las mejores tasas. Evita cambiar en aeropuerto.</div>
+    </div>
+  `;
+}
+
+function updateConversion() {
+  const amount = parseFloat(document.getElementById('eur-input').value) || 0;
+  const results = document.getElementById('converter-results');
+  results.innerHTML = CURRENCIES.map(c => `<div class="converter-result" style="border-left: 3px solid ${c.color}">
+    <div class="converter-result-header">
+      <span>${c.flag} ${c.code}</span>
+      <span class="converter-rate">1€ = ${exchangeRates[c.code] ? exchangeRates[c.code].toFixed(2) : '—'} ${c.symbol}</span>
+    </div>
+    <div class="converter-result-value">${c.symbol} ${convertEUR(amount, c.code)}</div>
+    <div class="converter-result-cities">${c.cities}</div>
+  </div>`).join('');
+}
+
+// ═══════════════════ MAP ═══════════════════
+function initMap() {
+  const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([25, 105], 4);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM', maxZoom: 18 }).addTo(map);
+
+  const points = [
+    { lat: 40.4168, lng: -3.7038, name: 'Madrid 🇪🇸', color: '#3498db' },
+    ...TRIP_DATA.cities.map(c => ({ lat: c.lat, lng: c.lng, name: `${c.flag} ${c.name}`, color: c.cc === 'cn' ? '#e74c3c' : c.cc === 'tw' ? '#1abc9c' : '#9b59b6' })),
+    { lat: 40.4168, lng: -3.7038, name: 'Madrid 🇪🇸 (vuelta)', color: '#3498db' }
+  ];
+
+  points.forEach(p => {
+    L.circleMarker([p.lat, p.lng], { radius: 8, fillColor: p.color, color: '#fff', weight: 2, opacity: 0.9, fillOpacity: 0.8 }).addTo(map).bindPopup(`<b>${p.name}</b>`);
+  });
+
+  const routeCoords = points.map(p => [p.lat, p.lng]);
+  L.polyline(routeCoords, { color: '#f1c40f', weight: 2, dashArray: '8,8', opacity: 0.6 }).addTo(map);
+
+  const asiaPoints = TRIP_DATA.cities.map(c => [c.lat, c.lng]);
+  if (asiaPoints.length) map.fitBounds(asiaPoints, { padding: [50, 50] });
+}
+
+// ═══════════════════ TODOS ═══════════════════
+function renderTodos() {
+  const el = document.getElementById('todo-list');
+  el.innerHTML = TRIP_DATA.todos.map((t, i) => `<div class="todo-item glass ${t.done ? 'done' : ''}" onclick="toggleTodo(${i})">
+    <div class="todo-check"></div>
+    <span class="todo-text">${t.text}</span>
+    <span class="todo-priority ${t.priority}">${t.priority}</span>
+  </div>`).join('');
+}
+function toggleTodo(i) {
+  TRIP_DATA.todos[i].done = !TRIP_DATA.todos[i].done;
+  renderTodos();
+}
+
+// ═══════════════════ BUDGET ═══════════════════
+function renderBudget() {
+  const total = TRIP_DATA.budget.reduce((s, b) => s + b.amount, 0);
+  document.getElementById('budget-total').textContent = total.toFixed(2) + '€';
+  document.getElementById('budget-items').innerHTML = TRIP_DATA.budget.map(b => `<div class="budget-item glass">
+    <span class="budget-concept">${b.concept}</span>
+    <span class="budget-value">${b.amount.toFixed(2)}€</span>
+  </div>`).join('');
+}
+
+// ═══════════════════ STATS ═══════════════════
+function renderStats() {
+  document.getElementById('stat-days').textContent = TRIP_DATA.trip.totalDays;
+  document.getElementById('stat-flights').textContent = TRIP_DATA.flights.length;
+  document.getElementById('stat-hotels').textContent = TRIP_DATA.hotels.length;
+  document.getElementById('stat-countries').textContent = '3';
+  document.getElementById('stat-cities').textContent = TRIP_DATA.cities.length;
+}
+
+// ═══════════════════ WEATHER FORECAST ═══════════════════
+const OWM_API_KEY = '398f8d03e230341df8f6e6602dae9d0f';
+const CITY_WEATHER = [
+  { name: 'Shanghai', lat: 31.23, lon: 121.47, start: '2026-03-13', end: '2026-03-16', tz: 'Asia/Shanghai' },
+  { name: 'Taipei', lat: 25.03, lon: 121.57, start: '2026-03-16', end: '2026-03-19', tz: 'Asia/Taipei' },
+  { name: 'Bangkok', lat: 13.76, lon: 100.50, start: '2026-03-19', end: '2026-03-20', tz: 'Asia/Bangkok' },
+  { name: 'Krabi', lat: 8.04, lon: 98.84, start: '2026-03-20', end: '2026-03-29', tz: 'Asia/Bangkok' },
+  { name: 'Xi\'an', lat: 34.34, lon: 108.94, start: '2026-03-31', end: '2026-04-02', tz: 'Asia/Shanghai' },
+  { name: 'Beijing', lat: 39.90, lon: 116.41, start: '2026-04-02', end: '2026-04-07', tz: 'Asia/Shanghai' }
+];
+
+// Climate averages for March-April (shown as "during trip" reference)
+const CLIMATE_DATA = {
+  'Shanghai': { tempMin: 7, tempMax: 15, rain: 65, desc: 'Fresco, posible lluvia', pack: 'Chaqueta ligera, paraguas' },
+  'Taipei': { tempMin: 15, tempMax: 22, rain: 110, desc: 'Templado, lluvia frecuente', pack: 'Chubasquero, ropa ligera' },
+  'Bangkok': { tempMin: 26, tempMax: 35, rain: 30, desc: 'Muy caluroso y seco', pack: 'Protector solar, ropa transpirable' },
+  'Krabi': { tempMin: 25, tempMax: 33, rain: 120, desc: 'Calor + tormentas tropicales', pack: 'Bañador, chubasquero, mosquitera' },
+  'Xi\'an': { tempMin: 7, tempMax: 18, desc: 'Primavera fresca', rain: 30, pack: 'Capas, chaqueta' },
+  'Beijing': { tempMin: 5, tempMax: 18, desc: 'Fresco, polvo posible', rain: 15, pack: 'Chaqueta, mascarilla opcional' }
+};
+
+function getWeatherEmoji(code) {
+  if (code >= 200 && code < 300) return '⛈️';
+  if (code >= 300 && code < 400) return '🌦️';
+  if (code >= 500 && code < 600) return '🌧️';
+  if (code >= 600 && code < 700) return '❄️';
+  if (code >= 700 && code < 800) return '🌫️';
+  if (code === 800) return '☀️';
+  if (code === 801) return '🌤️';
+  if (code <= 803) return '⛅';
+  return '☁️';
+}
+
+async function renderWeather() {
+  const el = document.getElementById('weather-grid');
+  // Show loading state first
+  el.innerHTML = CITY_WEATHER.map(c => `<div class="weather-card glass">
+    <div class="weather-city-name">${c.name}</div>
+    <div class="weather-dates">${c.start.slice(5)} → ${c.end.slice(5)}</div>
+    <div class="weather-loading">⏳ Cargando datos reales...</div>
+  </div>`).join('');
+
+  // Fetch real-time weather for all cities in parallel
+  const results = await Promise.allSettled(
+    CITY_WEATHER.map(c =>
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${c.lat}&lon=${c.lon}&appid=${OWM_API_KEY}&units=metric&lang=es`)
+        .then(r => r.ok ? r.json() : Promise.reject('API error'))
+    )
+  );
+
+  el.innerHTML = CITY_WEATHER.map((c, i) => {
+    const cl = CLIMATE_DATA[c.name] || {};
+    const result = results[i];
+    const live = result.status === 'fulfilled' ? result.value : null;
+
+    if (live) {
+      const emoji = getWeatherEmoji(live.weather[0].id);
+      const temp = Math.round(live.main.temp);
+      const feelsLike = Math.round(live.main.feels_like);
+      const tempMin = Math.round(live.main.temp_min);
+      const tempMax = Math.round(live.main.temp_max);
+      const desc = live.weather[0].description;
+      const humidity = live.main.humidity;
+      const wind = Math.round(live.wind.speed * 3.6); // m/s → km/h
+
+      return `<div class="weather-card glass">
+        <div class="weather-city-name">${c.name}</div>
+        <div class="weather-dates">${c.start.slice(5)} → ${c.end.slice(5)}</div>
+        <div class="weather-live-badge">🔴 EN VIVO</div>
+        <div class="weather-main">
+          <div class="weather-icon">${emoji}</div>
+          <div class="weather-temps">
+            <span class="weather-high">${temp}°</span>
+            <span class="weather-low">${feelsLike}°</span>
+          </div>
+        </div>
+        <div class="weather-desc">${emoji} ${desc.charAt(0).toUpperCase() + desc.slice(1)}</div>
+        <div class="weather-live-details">
+          <span>🌡️ ${tempMin}° / ${tempMax}°</span>
+          <span>💧 ${humidity}%</span>
+          <span>💨 ${wind} km/h</span>
+        </div>
+        <div class="weather-trip-forecast">
+          <div class="weather-trip-label">📅 En tu viaje (${c.start.slice(5).replace('-', '/')}):</div>
+          <div class="weather-trip-data">${cl.tempMin}°–${cl.tempMax}° · ${cl.desc} · 🌧️ ${cl.rain}mm</div>
+        </div>
+        <div class="weather-pack">🧳 ${cl.pack || ''}</div>
+      </div>`;
+    } else {
+      // Fallback to static data
+      return `<div class="weather-card glass">
+        <div class="weather-city-name">${c.name}</div>
+        <div class="weather-dates">${c.start.slice(5)} → ${c.end.slice(5)}</div>
+        <div class="weather-main">
+          <div class="weather-icon">🌡️</div>
+          <div class="weather-temps">
+            <span class="weather-high">${cl.tempMax}°</span>
+            <span class="weather-low">${cl.tempMin}°</span>
+          </div>
+        </div>
+        <div class="weather-desc">${cl.desc || ''}</div>
+        <div class="weather-rain">🌧️ ~${cl.rain}mm lluvia/mes</div>
+        <div class="weather-pack">🧳 ${cl.pack || ''}</div>
+      </div>`;
+    }
+  }).join('');
+}
+
+// ═══════════════════ TIMEZONE TRACKER ═══════════════════
+const TIMEZONES = [
+  { city: 'Madrid 🇪🇸', tz: 'Europe/Madrid', emoji: '🏠' },
+  { city: 'Shanghai 🇨🇳', tz: 'Asia/Shanghai', emoji: '🏙️' },
+  { city: 'Taipei 🇹🇼', tz: 'Asia/Taipei', emoji: '🏯' },
+  { city: 'Bangkok 🇹🇭', tz: 'Asia/Bangkok', emoji: '🛕' }
+];
+
+function renderTimezones() {
+  const el = document.getElementById('timezone-grid');
+  const update = () => {
+    el.innerHTML = TIMEZONES.map(t => {
+      const now = new Date();
+      const fmt = new Intl.DateTimeFormat('es-ES', { timeZone: t.tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      const dateFmt = new Intl.DateTimeFormat('es-ES', { timeZone: t.tz, weekday: 'short', day: 'numeric', month: 'short' });
+      const time = fmt.format(now);
+      const date = dateFmt.format(now);
+      const hour = parseInt(time.split(':')[0]);
+      const period = hour >= 6 && hour < 12 ? '🌅' : hour >= 12 && hour < 18 ? '☀️' : hour >= 18 && hour < 22 ? '🌆' : '🌙';
+
+      const madridFmt = new Intl.DateTimeFormat('es-ES', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', hour12: false });
+      const madridTime = madridFmt.format(now);
+      const diff = parseInt(time.split(':')[0]) - parseInt(madridTime.split(':')[0]);
+      const diffStr = diff > 0 ? `+${diff}h` : `${diff}h`;
+
+      return `<div class="tz-card glass">
+        <div class="tz-emoji">${t.emoji}</div>
+        <div class="tz-city">${t.city}</div>
+        <div class="tz-time">${period} ${time}</div>
+        <div class="tz-date">${date}</div>
+        <div class="tz-diff">${t.tz === 'Europe/Madrid' ? '🏠 Tu hora' : diffStr + ' vs Madrid'}</div>
+      </div>`;
+    }).join('');
+  };
+  update();
+  setInterval(update, 1000);
+}
+
+// ═══════════════════ DAILY AGENDA ═══════════════════
+function renderAgenda() {
+  const el = document.getElementById('agenda-grid');
+  const now = new Date();
+  const tripStart = new Date('2026-03-12');
+  const tripEnd = new Date('2026-04-08');
+
+  // Build daily events from all data sources
+  const events = [];
+
+  // Flights
+  TRIP_DATA.flights.forEach(f => {
+    const dateStr = f.date.replace('~', '').trim();
+    events.push({ date: dateStr, type: 'flight', icon: f.type === 'train' ? '🚄' : '✈️', text: f.label, time: f.segments[0].dep, detail: f.segments[0].airline });
+  });
+
+  // Hotels check-in/out
+  TRIP_DATA.hotels.forEach(h => {
+    if (h.status === 'confirmed') {
+      events.push({ date: h.checkIn, type: 'checkin', icon: '🏨', text: `Check-in: ${h.name}`, time: '', detail: h.city });
+      events.push({ date: h.checkOut, type: 'checkout', icon: '🚪', text: `Check-out: ${h.name}`, time: '', detail: h.city });
+    }
+  });
+
+  // City transitions
+  TRIP_DATA.cities.forEach(c => {
+    const startDate = new Date(c.start);
+    const d = `${startDate.getDate()} ${['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'][startDate.getMonth()]}`;
+    events.push({ date: d, type: 'city', icon: c.flag, text: `Llegada a ${c.name}`, time: '', detail: `${c.nights} noches · ${c.country}` });
+  });
+
+  // Activities
+  TRIP_DATA.activities.forEach(a => {
+    const dateStr = a.date.replace(' 2026', '').trim();
+    events.push({ date: dateStr, type: 'activity', icon: a.icon, text: a.name, time: '', detail: a.city });
+  });
+
+  // Group by date
+  const grouped = {};
+  events.forEach(e => {
+    if (!grouped[e.date]) grouped[e.date] = [];
+    grouped[e.date].push(e);
+  });
+
+  // Sort dates
+  const months = { 'Ene': 0, 'Feb': 1, 'Mar': 2, 'Abr': 3, 'May': 4, 'Jun': 5 };
+  const sortedDates = Object.keys(grouped).sort((a, b) => {
+    const [dA, mA] = a.split(' ');
+    const [dB, mB] = b.split(' ');
+    return (months[mA] || 0) * 100 + parseInt(dA) - ((months[mB] || 0) * 100 + parseInt(dB));
+  });
+
+  el.innerHTML = sortedDates.map(date => `
+    <div class="agenda-day glass">
+      <div class="agenda-date">${date}</div>
+      <div class="agenda-events">
+        ${grouped[date].map(e => `
+          <div class="agenda-event agenda-${e.type}">
+            <span class="agenda-icon">${e.icon}</span>
+            <div class="agenda-text">
+              <div class="agenda-title">${e.text}</div>
+              <div class="agenda-detail">${e.time ? e.time + ' · ' : ''}${e.detail}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════ PACKING LIST (SMART) ═══════════════════
+const PACKING_DATA = {
+  essentials: [
+    { item: '🛂 Pasaportes (vigentes 6+ meses)', qty: 2, critical: true },
+    { item: '💳 Tarjetas: Revolut + N26 + backup Visa', qty: 3, critical: true },
+    { item: '📱 Móviles + cargadores USB-C', qty: 2, critical: true },
+    { item: '🔌 Adaptador universal de enchufe', qty: 1, critical: true },
+    { item: '🔋 Power bank 20000mAh', qty: 1, critical: true },
+    { item: '📄 Copias impresas: reservas vuelos + hoteles', qty: 1, critical: true },
+    { item: '🏥 Seguro médico internacional (doc impreso)', qty: 1, critical: true },
+    { item: '💊 Botiquín: ibuprofeno, antidiarreicos, tiritas', qty: 1, critical: true },
+    { item: '🔒 Candado TSA para maleta', qty: 2, critical: false }
+  ],
+  clothing_cold: [
+    { item: '🧥 Chaqueta ligera / cortavientos', qty: 1, for: 'Shanghai, Xi\'an, Beijing' },
+    { item: '👖 Pantalones largos', qty: 3, for: 'China general' },
+    { item: '🧣 Bufanda fina', qty: 1, for: 'Beijing (5-18°)' },
+    { item: '👟 Zapatillas cómodas para andar', qty: 1, for: 'Todo el viaje' }
+  ],
+  clothing_hot: [
+    { item: '👕 Camisetas ligeras', qty: 6, for: 'Bangkok, Krabi (25-35°)' },
+    { item: '🩳 Pantalones cortos', qty: 3, for: 'Tailandia' },
+    { item: '🩱 Bañador', qty: 2, for: 'Krabi 🏖️' },
+    { item: '🩴 Chanclas / sandalias', qty: 1, for: 'Tailandia + playas' },
+    { item: '👗 Ropa de templo (hombros + rodillas cubiertos)', qty: 1, for: 'Bangkok templos' }
+  ],
+  tech: [
+    { item: '📷 Cámara + tarjeta SD extra', qty: 1 },
+    { item: '🎧 Auriculares + adaptador avión', qty: 1 },
+    { item: '📶 eSIM Asia (Airalo / Holafly)', qty: 2, critical: true, note: 'China: necesita VPN' },
+    { item: '🔐 VPN instalada (ExpressVPN / NordVPN)', qty: 1, critical: true, note: 'Para Google/WhatsApp en China' },
+    { item: '📲 Apps: WeChat, Alipay, Grab, Google Maps offline', qty: 1, critical: true }
+  ],
+  weather: [
+    { item: '☂️ Paraguas plegable', qty: 1, for: 'Taipei (110mm lluvia) + Krabi' },
+    { item: '🧴 Protector solar SPF50', qty: 1, for: 'Bangkok + Krabi' },
+    { item: '🦟 Repelente antimosquitos', qty: 1, for: 'Krabi + Bangkok' },
+    { item: '😷 Mascarilla FFP2', qty: 2, for: 'Beijing (polvo primaveral)' },
+    { item: '🌧️ Chubasquero fino', qty: 1, for: 'Taipei + Krabi (tormentas)' }
+  ]
+};
+
+function renderPacking() {
+  const el = document.getElementById('packing-grid');
+  const saved = JSON.parse(localStorage.getItem('packing_checked') || '{}');
+
+  const renderCategory = (title, emoji, items) => {
+    return `<div class="packing-category glass">
+      <div class="packing-cat-title">${emoji} ${title}</div>
+      <div class="packing-items">
+        ${items.map((item, i) => {
+      const key = `${title}_${i}`;
+      const checked = saved[key] ? 'checked' : '';
+      return `<label class="packing-item ${item.critical ? 'packing-critical' : ''} ${checked ? 'packing-done' : ''}">
+            <input type="checkbox" ${checked} onchange="togglePacking('${key}', this)">
+            <span class="packing-text">
+              ${item.item}${item.qty > 1 ? ` <span class="packing-qty">×${item.qty}</span>` : ''}
+              ${item.for ? `<span class="packing-for">📍 ${item.for}</span>` : ''}
+              ${item.note ? `<span class="packing-note">⚠️ ${item.note}</span>` : ''}
+            </span>
+          </label>`;
+    }).join('')}
+      </div>
+    </div>`;
+  };
+
+  // Count progress
+  const allItems = [...PACKING_DATA.essentials, ...PACKING_DATA.clothing_cold, ...PACKING_DATA.clothing_hot, ...PACKING_DATA.tech, ...PACKING_DATA.weather];
+  const totalItems = allItems.length;
+  const checkedCount = Object.keys(saved).filter(k => saved[k]).length;
+  const pct = Math.round((checkedCount / totalItems) * 100);
+
+  el.innerHTML = `
+    <div class="packing-progress glass">
+      <div class="packing-progress-header">
+        <span class="packing-progress-label">🧳 Progreso: ${checkedCount}/${totalItems}</span>
+        <span class="packing-progress-pct">${pct}%</span>
+      </div>
+      <div class="packing-bar"><div class="packing-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${renderCategory('Esenciales', '🛂', PACKING_DATA.essentials)}
+    ${renderCategory('Ropa fría (China)', '🧥', PACKING_DATA.clothing_cold)}
+    ${renderCategory('Ropa calor (Tailandia)', '👕', PACKING_DATA.clothing_hot)}
+    ${renderCategory('Tech & Conectividad', '📱', PACKING_DATA.tech)}
+    ${renderCategory('Según el clima', '🌦️', PACKING_DATA.weather)}
+  `;
+}
+
+function togglePacking(key, checkbox) {
+  const saved = JSON.parse(localStorage.getItem('packing_checked') || '{}');
+  saved[key] = checkbox.checked;
+  localStorage.setItem('packing_checked', JSON.stringify(saved));
+  checkbox.closest('.packing-item').classList.toggle('packing-done', checkbox.checked);
+  renderPacking();
+}
+
+// ═══════════════════ AIRPORT TRANSPORT ═══════════════════
+const TRANSPORT_DATA = [
+  {
+    city: 'Shanghai',
+    airport: 'PVG (Pudong)',
+    hotel: 'Shanghai Yuhang Hotel — 525 Sichuan North Rd',
+    options: [
+      { mode: '🚇 Metro', route: 'Línea 2 (PVG → Nanjing East Rd, ~1h 20min)', cost: '¥7 (~0.90€)', tip: 'Última salida ~22:00. Necesitas WeChat/Alipay o comprar ticket en máquina' },
+      { mode: '🚕 Taxi', route: 'PVG → hotel (~45 min sin tráfico)', cost: '¥180-220 (~25-30€)', tip: 'Usa meter. Muestra dirección en chino al taxista' },
+      { mode: '🚌 Maglev + Metro', route: 'Maglev PVG → Longyang Rd (8 min, 430km/h!) + Metro L2', cost: '¥57 (~7€)', tip: '¡Experiencia única a 430km/h! Más rápido que taxi' }
+    ]
+  },
+  {
+    city: 'Taipei',
+    airport: 'TPE (Taoyuan)',
+    hotel: 'Pendiente — zona centro Taipei',
+    options: [
+      { mode: '🚇 Metro/MRT', route: 'Airport MRT → Taipei Main Station (35 min directo)', cost: 'NT$160 (~4.60€)', tip: 'Express cada 15 min. Directo sin paradas. Aceptan tarjeta' },
+      { mode: '🚕 Taxi', route: 'TPE → centro Taipei (~40 min)', cost: 'NT$1200 (~35€)', tip: 'Taxis amarillos con taxímetro. Muy fiables' },
+      { mode: '🚌 Bus 1819', route: 'TPE → Taipei Main Station (55 min)', cost: 'NT$140 (~4€)', tip: 'Más barato. 24h. Sale cada 15-20 min' }
+    ]
+  },
+  {
+    city: 'Bangkok (DMK)',
+    airport: 'DMK (Don Mueang)',
+    hotel: 'Cozy Blu Suvarnabhumi',
+    options: [
+      { mode: '🚕 Grab', route: 'DMK → hotel (depende tráfico, 40-90 min)', cost: '฿200-400 (~5-10€)', tip: '¡Descargar Grab antes! Es el Uber de Asia. Pago con tarjeta' },
+      { mode: '🚌 A1 Bus + BTS', route: 'A1 bus DMK → BTS Mo Chit + Skytrain', cost: '฿60 (~1.50€)', tip: 'Bus cada 5 min. BTS Skytrain es rápido y moderno' },
+      { mode: '🚕 Taxi meter', route: 'Desde la cola oficial de taxis', cost: '฿200-350 (~5-9€)', tip: 'Siempre pedir que pongan el meter. +฿50 peaje autopista' }
+    ]
+  },
+  {
+    city: 'Krabi',
+    airport: 'KBV (Krabi)',
+    hotel: 'Ao Nang Goodwill Hotel — Ao Nang',
+    options: [
+      { mode: '🚐 Shuttle/Van', route: 'KBV → Ao Nang (30 min)', cost: '฿150 (~4€)', tip: 'Shared van. Comprar ticket en counter del aeropuerto' },
+      { mode: '🚕 Taxi privado', route: 'KBV → Ao Nang directo', cost: '฿600-800 (~16-22€)', tip: 'Más cómodo. Reservar en counter o pedir en Grab' },
+      { mode: '🚕 Grab', route: 'KBV → Ao Nang', cost: '฿400-500 (~11-14€)', tip: 'Disponibilidad limitada en Krabi. Mejor reservar van' }
+    ]
+  },
+  {
+    city: 'Xi\'an',
+    airport: 'XIY (Xianyang)',
+    hotel: 'Space Capsule Hotel (¡dentro del aeropuerto!)',
+    options: [
+      { mode: '🏨 Dentro T3', route: 'Gate 312, 1F, Terminal 3', cost: 'Incluido', tip: '¡No necesitas transporte! Hotel dentro del aeropuerto. Check-in 14:00' },
+      { mode: '🚇 Metro (día siguiente → Bell Tower)', route: 'Airport Metro → Bell Tower (55 min)', cost: '¥8 (~1€)', tip: 'Línea 14 airport → transfer → Línea 2 Bell Tower' }
+    ]
+  },
+  {
+    city: 'Beijing',
+    airport: 'PKX (Daxing)',
+    hotel: 'Pendiente — centro Beijing',
+    options: [
+      { mode: '🚇 Metro Daxing Line', route: 'PKX → ciudad (Caoqiao, 19 min express)', cost: '¥35 (~4.50€)', tip: 'Express directo. Luego transfer a red de metro normal' },
+      { mode: '🚕 Taxi/Didi', route: 'PKX → centro (45 min)', cost: '¥120-180 (~15-23€)', tip: 'Didi es el Uber chino. Necesita WeChat. Taxis oficiales con meter' },
+      { mode: '🚌 Airport Bus', route: 'Varias líneas a diferentes zonas', cost: '¥40 (~5€)', tip: 'Líneas a Xidan, Beijing Station, etc. Último bus ~23:00' }
+    ]
+  },
+  {
+    city: 'Ámsterdam',
+    airport: 'AMS (Schiphol)',
+    hotel: 'Hotel Ben Centre — 7 Beursstraat',
+    options: [
+      { mode: '🚂 Tren NS', route: 'Schiphol → Amsterdam Centraal (15 min)', cost: '€5.70', tip: 'Trenes cada 10 min. Pago contactless. Super eficiente' },
+      { mode: '🚕 Taxi', route: 'Schiphol → hotel (20 min)', cost: '€40-50', tip: 'Taxis oficiales azules. También Uber disponible' }
+    ]
+  }
+];
+
+function renderTransport() {
+  const el = document.getElementById('transport-grid');
+  el.innerHTML = TRANSPORT_DATA.map(t => `
+    <div class="transport-card glass">
+      <div class="transport-header">
+        <div class="transport-city">${t.city}</div>
+        <div class="transport-airport">${t.airport}</div>
+      </div>
+      <div class="transport-hotel">🏨 ${t.hotel}</div>
+      <div class="transport-options">
+        ${t.options.map(o => `
+          <div class="transport-option">
+            <div class="transport-mode">${o.mode}</div>
+            <div class="transport-route">${o.route}</div>
+            <div class="transport-meta">
+              <span class="transport-cost">💰 ${o.cost}</span>
+              <span class="transport-tip">💡 ${o.tip}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════ CHECK-IN COUNTDOWN ═══════════════════
+function renderCheckinAlerts() {
+  const el = document.getElementById('checkin-alerts');
+  const now = new Date();
+
+  const flightDates = TRIP_DATA.flights.filter(f => f.status === 'confirmed').map(f => {
+    // Parse flight date
+    const months = { 'Mar': 2, 'Abr': 3 };
+    const parts = f.date.replace('~', '').trim().split(' ');
+    const day = parseInt(parts[0]);
+    const month = months[parts[1]] || 2;
+    const flightDate = new Date(2026, month, day);
+    const daysUntil = Math.ceil((flightDate - now) / (1000 * 60 * 60 * 24));
+
+    // Check-in window
+    let checkinWindow = '24h antes';
+    let checkinDays = 1;
+    if (f.segments[0].airline?.includes('AirAsia')) { checkinWindow = '14 días antes'; checkinDays = 14; }
+
+    const daysUntilCheckin = daysUntil - checkinDays;
+    let urgency = 'future';
+    if (daysUntilCheckin <= 0) urgency = 'now';
+    else if (daysUntilCheckin <= 3) urgency = 'soon';
+    else if (daysUntilCheckin <= 7) urgency = 'week';
+
+    return { ...f, flightDate, daysUntil, checkinWindow, daysUntilCheckin, urgency };
+  }).sort((a, b) => a.daysUntil - b.daysUntil);
+
+  el.innerHTML = flightDates.map(f => `
+    <div class="checkin-alert-card glass checkin-${f.urgency}">
+      <div class="checkin-alert-header">
+        <span class="checkin-flight-label">${f.label}</span>
+        <span class="checkin-days-badge">${f.daysUntil > 0 ? `${f.daysUntil} días` : '¡HOY!'}</span>
+      </div>
+      <div class="checkin-alert-body">
+        <div class="checkin-countdown">
+          ${f.urgency === 'now' ? '🟢 ¡Check-in ABIERTO!' :
+      f.urgency === 'soon' ? `🟡 Check-in en ${f.daysUntilCheckin} días` :
+        `⚪ Check-in: ${f.checkinWindow}`}
+        </div>
+        <div class="checkin-airline">${f.segments[0].airline} · ${f.date}</div>
+        ${f.manageUrl ? `<a href="${f.manageUrl}" target="_blank" class="action-btn action-checkin" style="margin-top:8px;font-size:0.72rem">✈️ Ir al check-in</a>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════ DOCUMENT VAULT ═══════════════════
+const DOC_TYPES = [
+  { id: 'passport_iker', label: '🛂 Pasaporte Iker', critical: true },
+  { id: 'passport_anais', label: '🛂 Pasaporte Anais', critical: true },
+  { id: 'seguro_medico', label: '🏥 Seguro médico', critical: true },
+  { id: 'visa_china', label: '🇨🇳 Visado China', critical: true },
+  { id: 'vuelo_mad_pvg', label: '✈️ Vuelo MAD→PVG', critical: false },
+  { id: 'vuelo_pvg_tpe', label: '✈️ Vuelo PVG→TPE', critical: false },
+  { id: 'vuelo_tpe_bkk', label: '✈️ Vuelo TPE→BKK', critical: false },
+  { id: 'vuelo_bkk_kbv', label: '✈️ Vuelo BKK→KBV', critical: false },
+  { id: 'vuelo_kbv_dmk', label: '✈️ Vuelo KBV→DMK', critical: false },
+  { id: 'vuelo_dmk_xiy', label: '✈️ Vuelo DMK→XIY', critical: false },
+  { id: 'vuelo_pkx_mad', label: '✈️ Vuelo PKX→MAD', critical: false },
+  { id: 'hotel_shanghai', label: '🏨 Hotel Shanghai', critical: false },
+  { id: 'hotel_bangkok', label: '🏨 Hotel Bangkok', critical: false },
+  { id: 'hotel_krabi', label: '🏨 Hotel Krabi', critical: false },
+  { id: 'hotel_xian', label: '🏨 Hotel Xi\'an', critical: false },
+  { id: 'hotel_amsterdam', label: '🏨 Hotel Ámsterdam', critical: false },
+  { id: 'tarjeta_revolut', label: '💳 Tarjeta Revolut', critical: false },
+  { id: 'esim_info', label: '📶 Info eSIM', critical: false },
+  { id: 'otros', label: '📎 Otros docs', critical: false }
+];
+
+function renderVault() {
+  const el = document.getElementById('vault-grid');
+  const stored = JSON.parse(localStorage.getItem('doc_vault') || '{}');
+  const uploadedCount = Object.keys(stored).length;
+
+  el.innerHTML = `
+    <div class="vault-stats glass">
+      <span>📁 ${uploadedCount}/${DOC_TYPES.length} documentos guardados</span>
+      <span class="vault-hint">📷 Haz foto o sube imagen — se guarda offline en tu navegador</span>
+    </div>
+    <div class="vault-docs">
+      ${DOC_TYPES.map(doc => {
+    const hasDoc = stored[doc.id];
+    return `<div class="vault-doc glass ${doc.critical ? 'vault-critical' : ''} ${hasDoc ? 'vault-uploaded' : ''}">
+          <div class="vault-doc-header">
+            <span class="vault-doc-label">${doc.label}</span>
+            <span class="vault-doc-status">${hasDoc ? '✅' : '⬜'}</span>
+          </div>
+          ${hasDoc ? `
+            <div class="vault-doc-preview" onclick="viewDoc('${doc.id}')">
+              <img src="${hasDoc}" alt="${doc.label}" loading="lazy">
+              <span class="vault-view-btn">👁️ Ver</span>
+            </div>
+            <button class="vault-remove" onclick="removeDoc('${doc.id}')">🗑️ Eliminar</button>
+          ` : `
+            <label class="vault-upload-btn">
+              📷 Subir foto
+              <input type="file" accept="image/*" capture="environment" onchange="uploadDoc('${doc.id}', this)" hidden>
+            </label>
+          `}
+        </div>`;
+  }).join('')}
+    </div>
+    <div id="vault-modal" class="vault-modal" onclick="this.style.display='none'">
+      <img id="vault-modal-img" src="" alt="Documento">
+    </div>
+  `;
+}
+
+function uploadDoc(id, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    // Compress to fit localStorage (~5MB limit)
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const maxW = 1200;
+      const scale = Math.min(1, maxW / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      const compressed = canvas.toDataURL('image/jpeg', 0.7);
+      const stored = JSON.parse(localStorage.getItem('doc_vault') || '{}');
+      stored[id] = compressed;
+      try {
+        localStorage.setItem('doc_vault', JSON.stringify(stored));
+        renderVault();
+      } catch (e) {
+        alert('⚠️ Almacenamiento lleno. Intenta con una imagen más pequeña.');
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function viewDoc(id) {
+  const stored = JSON.parse(localStorage.getItem('doc_vault') || '{}');
+  if (stored[id]) {
+    const modal = document.getElementById('vault-modal');
+    document.getElementById('vault-modal-img').src = stored[id];
+    modal.style.display = 'flex';
+  }
+}
+
+function removeDoc(id) {
+  if (!confirm('¿Eliminar este documento?')) return;
+  const stored = JSON.parse(localStorage.getItem('doc_vault') || '{}');
+  delete stored[id];
+  localStorage.setItem('doc_vault', JSON.stringify(stored));
+  renderVault();
+}
+
+// ═══════════════════ EXPENSE TRACKER ═══════════════════
+const EXPENSE_CURRENCIES = {
+  EUR: { symbol: '€', rate: 1, flag: '🇪🇺' },
+  CNY: { symbol: '¥', rate: 0.13, flag: '🇨🇳' },
+  TWD: { symbol: 'NT$', rate: 0.029, flag: '🇹🇼' },
+  THB: { symbol: '฿', rate: 0.026, flag: '🇹🇭' }
+};
+
+const EXPENSE_CATEGORIES = [
+  { id: 'food', emoji: '🍜', label: 'Comida' },
+  { id: 'transport', emoji: '🚕', label: 'Transporte' },
+  { id: 'hotel', emoji: '🏨', label: 'Alojamiento' },
+  { id: 'activities', emoji: '🎯', label: 'Actividades' },
+  { id: 'shopping', emoji: '🛍️', label: 'Compras' },
+  { id: 'other', emoji: '📎', label: 'Otros' }
+];
+
+function getExpenses() {
+  return JSON.parse(localStorage.getItem('trip_expenses') || '[]');
+}
+
+function saveExpenses(expenses) {
+  localStorage.setItem('trip_expenses', JSON.stringify(expenses));
+}
+
+function renderExpenses() {
+  const el = document.getElementById('expenses-grid');
+  const expenses = getExpenses();
+
+  // Calculate totals
+  const totalEUR = expenses.reduce((sum, e) => sum + e.amountEUR, 0);
+  const byCountry = {};
+  const byCategory = {};
+  expenses.forEach(e => {
+    byCountry[e.currency] = (byCountry[e.currency] || 0) + e.amountEUR;
+    byCategory[e.category] = (byCategory[e.category] || 0) + e.amountEUR;
+  });
+
+  // Budget (estimated ~2500€ for 27 days)
+  const budget = 2500;
+  const budgetPct = Math.min(100, Math.round((totalEUR / budget) * 100));
+
+  el.innerHTML = `
+    <div class="expense-summary glass">
+      <div class="expense-total">
+        <span class="expense-total-label">💰 Total gastado</span>
+        <span class="expense-total-amount">${totalEUR.toFixed(2)}€</span>
+      </div>
+      <div class="expense-budget-bar">
+        <div class="expense-budget-fill" style="width:${budgetPct}%;background:${budgetPct > 80 ? '#e74c3c' : budgetPct > 60 ? '#f1c40f' : '#2ecc71'}"></div>
+      </div>
+      <div class="expense-budget-label">${budgetPct}% del presupuesto (${budget}€)</div>
+      ${Object.keys(byCountry).length > 0 ? `
+        <div class="expense-breakdown">
+          ${Object.entries(byCountry).map(([cur, amt]) =>
+    `<span class="expense-country-tag">${EXPENSE_CURRENCIES[cur]?.flag || '🌍'} ${amt.toFixed(0)}€</span>`
+  ).join('')}
+        </div>
+      ` : ''}
+      ${Object.keys(byCategory).length > 0 ? `
+        <div class="expense-breakdown">
+          ${Object.entries(byCategory).map(([cat, amt]) => {
+    const catInfo = EXPENSE_CATEGORIES.find(c => c.id === cat) || { emoji: '📎', label: cat };
+    return `<span class="expense-cat-tag">${catInfo.emoji} ${catInfo.label}: ${amt.toFixed(0)}€</span>`;
+  }).join('')}
+        </div>
+      ` : ''}
+    </div>
+    
+    <div class="expense-add glass">
+      <div class="expense-add-title">➕ Nuevo gasto</div>
+      <div class="expense-form">
+        <input type="number" id="expense-amount" placeholder="Cantidad" step="0.01" class="expense-input">
+        <select id="expense-currency" class="expense-select">
+          ${Object.entries(EXPENSE_CURRENCIES).map(([code, c]) => `<option value="${code}">${c.flag} ${code} (${c.symbol})</option>`).join('')}
+        </select>
+        <select id="expense-category" class="expense-select">
+          ${EXPENSE_CATEGORIES.map(c => `<option value="${c.id}">${c.emoji} ${c.label}</option>`).join('')}
+        </select>
+        <input type="text" id="expense-note" placeholder="Nota (opcional)" class="expense-input">
+        <button onclick="addExpense()" class="expense-add-btn">💾 Guardar</button>
+      </div>
+    </div>
+    
+    ${expenses.length > 0 ? `
+      <div class="expense-history glass">
+        <div class="expense-history-title">📋 Últimos gastos</div>
+        ${expenses.slice(-15).reverse().map((e, i) => {
+    const catInfo = EXPENSE_CATEGORIES.find(c => c.id === e.category) || { emoji: '📎' };
+    return `<div class="expense-row">
+            <span class="expense-row-cat">${catInfo.emoji}</span>
+            <span class="expense-row-note">${e.note || e.category}</span>
+            <span class="expense-row-amount">${EXPENSE_CURRENCIES[e.currency]?.symbol || ''}${e.amount} → ${e.amountEUR.toFixed(2)}€</span>
+            <span class="expense-row-date">${e.date}</span>
+            <span class="expense-row-del" onclick="deleteExpense(${expenses.length - 1 - i})">✕</span>
+          </div>`;
+  }).join('')}
+      </div>
+    ` : '<div class="expense-empty glass">🎒 Aún no hay gastos. ¡Empieza a registrar!</div>'}
+  `;
+}
+
+function addExpense() {
+  const amount = parseFloat(document.getElementById('expense-amount').value);
+  if (!amount || amount <= 0) return alert('Introduce una cantidad válida');
+
+  const currency = document.getElementById('expense-currency').value;
+  const category = document.getElementById('expense-category').value;
+  const note = document.getElementById('expense-note').value;
+  const rate = EXPENSE_CURRENCIES[currency]?.rate || 1;
+  const amountEUR = amount * rate;
+
+  const now = new Date();
+  const date = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}`;
+
+  const expenses = getExpenses();
+  expenses.push({ amount, currency, category, note, amountEUR, date, timestamp: Date.now() });
+  saveExpenses(expenses);
+  renderExpenses();
+}
+
+function deleteExpense(index) {
+  const expenses = getExpenses();
+  expenses.splice(index, 1);
+  saveExpenses(expenses);
+  renderExpenses();
+}
+
+// ═══════════════════ BUCKET LIST ═══════════════════
+const BUCKET_LIST = [
+  {
+    city: 'Shanghai', flag: '🇨🇳', items: [
+      { id: 'sh1', text: '🌃 Ver el Bund de noche (skyline de Pudong iluminado)', must: true },
+      { id: 'sh2', text: '🏯 Pasear por el Jardín Yuyuan + bazar', must: true },
+      { id: 'sh3', text: '🍜 Probar xiaolongbao auténtico (Din Tai Fung o Jia Jia)', must: true },
+      { id: 'sh4', text: '🚄 Montar en el Maglev a 430 km/h', must: false },
+      { id: 'sh5', text: '🛍️ Nanjing Road — calle peatonal de shopping', must: false },
+      { id: 'sh6', text: '📸 Foto desde Shanghai Tower (observatorio 632m)', must: false },
+      { id: 'sh7', text: '🥟 Cena callejera en Tianzifang (barrio artístico)', must: false }
+    ]
+  },
+  {
+    city: 'Taipei', flag: '🇹🇼', items: [
+      { id: 'tp1', text: '🏮 Shilin Night Market (comida callejera épica)', must: true },
+      { id: 'tp2', text: '🏯 Templo Longshan + barrio Wanhua', must: true },
+      { id: 'tp3', text: '🧋 Bubble tea original (encontrar la mejor bolería)', must: true },
+      { id: 'tp4', text: '⛩️ Jiufen — pueblo de "El Viaje de Chihiro"', must: true },
+      { id: 'tp5', text: '🍖 Probar beef noodle soup (plato nacional)', must: false },
+      { id: 'tp6', text: '🏔️ Elephant Mountain atardecer con vistas Taipei 101', must: false },
+      { id: 'tp7', text: '🎌 Barrio japonés Ximending', must: false }
+    ]
+  },
+  {
+    city: 'Bangkok', flag: '🇹🇭', items: [
+      { id: 'bk1', text: '⛪ Gran Palacio + Wat Phra Kaew (Buda Esmeralda)', must: true },
+      { id: 'bk2', text: '🛶 Mercado flotante Damnoen Saduak o Amphawa', must: true },
+      { id: 'bk3', text: '🍛 Pad Thai callejero en Khao San Road', must: true },
+      { id: 'bk4', text: '🛕 Wat Arun al atardecer', must: false },
+      { id: 'bk5', text: '💆 Masaje tailandés (Wat Pho — cuna del masaje)', must: false },
+      { id: 'bk6', text: '🌃 Rooftop bar con vistas al skyline', must: false }
+    ]
+  },
+  {
+    city: 'Krabi', flag: '🇹🇭', items: [
+      { id: 'kr1', text: '🏖️ Railay Beach (solo accesible en barco)', must: true },
+      { id: 'kr2', text: '🛶 Tour 4 islas (Koh Poda, Tup, Chicken, Phra Nang)', must: true },
+      { id: 'kr3', text: '🌅 Atardecer desde Ao Nang Beach', must: true },
+      { id: 'kr4', text: '🤿 Snorkel en Koh Phi Phi o Hong Island', must: true },
+      { id: 'kr5', text: '🐒 Tiger Cave Temple (1260 escalones, vistas 360°)', must: false },
+      { id: 'kr6', text: '🍤 Cena de mariscos en Ao Nang seafood market', must: false },
+      { id: 'kr7', text: '🛶 Kayak por los manglares de Ao Thalane', must: false },
+      { id: 'kr8', text: '🧗 Escalada en Railay (nivel principiante disponible)', must: false }
+    ]
+  },
+  {
+    city: 'Xi\'an', flag: '🇨🇳', items: [
+      { id: 'xa1', text: '🪖 Guerreros de Terracota (8000 figuras, Patrimonio UNESCO)', must: true },
+      { id: 'xa2', text: '🍜 Muslim Quarter — comida callejera musulmana Xi\'an', must: true },
+      { id: 'xa3', text: '🏰 Muralla de la ciudad en bici (13.7 km, la mejor de China)', must: true },
+      { id: 'xa4', text: '🕌 Gran Mezquita de Xi\'an (fusión china-islámica)', must: false },
+      { id: 'xa5', text: '🥟 Biángbiáng noodles (los fideos más anchos del mundo)', must: false },
+      { id: 'xa6', text: '🏮 Torre de la Campana + Torre del Tambor de noche', must: false }
+    ]
+  },
+  {
+    city: 'Beijing', flag: '🇨🇳', items: [
+      { id: 'bj1', text: '🏯 Ciudad Prohibida (Palacio Imperial, ¡reservar!) ', must: true },
+      { id: 'bj2', text: '🧱 Gran Muralla (sección Mutianyu — menos turistas)', must: true },
+      { id: 'bj3', text: '🦆 Pato Pekín auténtico (Da Dong o Quanjude)', must: true },
+      { id: 'bj4', text: '🏟️ Nido de Pájaro + Cubo de Agua (Olímpicos)', must: false },
+      { id: 'bj5', text: '⛩️ Templo del Cielo — madrugón para ver tai chi', must: false },
+      { id: 'bj6', text: '🛍️ Hutongs en rickshaw (barrios tradicionales)', must: false },
+      { id: 'bj7', text: '🍢 Wangfujing Night Market (comida exótica en pinchos)', must: false }
+    ]
+  }
+];
+
+function renderBucketList() {
+  const el = document.getElementById('bucket-grid');
+  const saved = JSON.parse(localStorage.getItem('bucket_checked') || '{}');
+
+  const allItems = BUCKET_LIST.flatMap(c => c.items);
+  const totalItems = allItems.length;
+  const doneCount = Object.keys(saved).filter(k => saved[k]).length;
+  const pct = Math.round((doneCount / totalItems) * 100);
+
+  el.innerHTML = `
+    <div class="bucket-progress glass">
+      <div class="bucket-progress-header">
+        <span>🎯 Experiencias: ${doneCount}/${totalItems}</span>
+        <span class="bucket-progress-pct">${pct}%</span>
+      </div>
+      <div class="packing-bar"><div class="packing-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${BUCKET_LIST.map(city => {
+    const cityDone = city.items.filter(i => saved[i.id]).length;
+    return `<div class="bucket-city glass">
+        <div class="bucket-city-header">
+          <span class="bucket-city-name">${city.flag} ${city.city}</span>
+          <span class="bucket-city-count">${cityDone}/${city.items.length}</span>
+        </div>
+        <div class="bucket-items">
+          ${city.items.map(item => {
+      const checked = saved[item.id] ? 'checked' : '';
+      return `<label class="bucket-item ${item.must ? 'bucket-must' : ''} ${checked ? 'bucket-done' : ''}">
+              <input type="checkbox" ${checked} onchange="toggleBucket('${item.id}', this)">
+              <span class="bucket-text">${item.text}${item.must ? ' <span class="bucket-must-tag">MUST DO</span>' : ''}</span>
+            </label>`;
+    }).join('')}
+        </div>
+      </div>`;
+  }).join('')}
+  `;
+}
+
+function toggleBucket(id, checkbox) {
+  const saved = JSON.parse(localStorage.getItem('bucket_checked') || '{}');
+  saved[id] = checkbox.checked;
+  localStorage.setItem('bucket_checked', JSON.stringify(saved));
+  renderBucketList();
+}
+
+// ═══════════════════ EMERGENCY DATA ═══════════════════
+const EMERGENCY_DATA = [
+  { country: 'China 🇨🇳', cc: 'cn', police: '110', ambulance: '120', fire: '119', embassy: '🇪🇸 Embajada de España', embassyPhone: '+86 10 6532 3629', embassyAddr: 'Sanlitun Dongwujie 9, Beijing', consulates: 'Shanghai: +86 21 6321 3543', notes: 'WeChat es esencial · VPN necesaria · Alipay para pagos' },
+  { country: 'Taiwán 🇹🇼', cc: 'tw', police: '110', ambulance: '119', fire: '119', embassy: '🇪🇸 Oficina Comercial de España', embassyPhone: '+886 2 2518 4901', embassyAddr: 'Room 10F, 205 Dunhua N. Rd, Taipei', consulates: '', notes: 'Google/WhatsApp funcionan · Tarjetas aceptadas · Muy seguro' },
+  { country: 'Tailandia 🇹🇭', cc: 'th', police: '191', ambulance: '1669', fire: '199', embassy: '🇪🇸 Embajada de España', embassyPhone: '+66 2 661 8284', embassyAddr: 'Lake Rajada Office Complex, Bangkok', consulates: 'Tourist police: 1155 (hablan inglés)', notes: 'Grab para taxis · Nunca pisar moneda (delito) · Seguro viaje importante' }
+];
+
+function renderEmergency() {
+  const el = document.getElementById('emergency-grid');
+  el.innerHTML = EMERGENCY_DATA.map(e => `<div class="emergency-card glass ${e.cc}">
+    <div class="emergency-header">
+      <div class="emergency-country">${e.country}</div>
+    </div>
+    <div class="emergency-numbers">
+      <div class="emergency-num"><span class="emergency-num-label">Policía</span><a href="tel:${e.police}" class="emergency-num-value emergency-call">📞 ${e.police}</a></div>
+      <div class="emergency-num"><span class="emergency-num-label">Ambulancia</span><a href="tel:${e.ambulance}" class="emergency-num-value emergency-call">🚑 ${e.ambulance}</a></div>
+      <div class="emergency-num"><span class="emergency-num-label">Bomberos</span><a href="tel:${e.fire}" class="emergency-num-value emergency-call">🚒 ${e.fire}</a></div>
+    </div>
+    <div class="emergency-embassy">
+      <div class="emergency-embassy-name">${e.embassy}</div>
+      <a href="tel:${e.embassyPhone.replace(/\s/g, '')}" class="emergency-call">${e.embassyPhone}</a>
+      <div class="emergency-embassy-addr">📍 ${e.embassyAddr}</div>
+      ${e.consulates ? `<div class="emergency-consulate">${e.consulates}</div>` : ''}
+    </div>
+    <div class="emergency-notes">💡 ${e.notes}</div>
+  </div>`).join('');
+}
+
+// ═══════════════════ USEFUL PHRASES ═══════════════════
+const PHRASES_DATA = [
+  {
+    country: 'Chino Mandarín 🇨🇳', cc: 'cn', phrases: [
+      { es: 'Hola', local: '你好', pron: 'Nǐ hǎo' },
+      { es: 'Gracias', local: '谢谢', pron: 'Xiè xie' },
+      { es: '¿Cuánto cuesta?', local: '多少钱？', pron: 'Duō shao qián?' },
+      { es: 'No entiendo', local: '我不懂', pron: 'Wǒ bù dǒng' },
+      { es: 'La cuenta, por favor', local: '买单', pron: 'Mǎi dān' },
+      { es: '¿Dónde está…?', local: '…在哪里？', pron: '…zài nǎlǐ?' },
+      { es: 'Ayuda', local: '帮帮我', pron: 'Bāng bāng wǒ' },
+      { es: 'Baño', local: '洗手间', pron: 'Xǐshǒujiān' },
+      { es: 'Hotel', local: '酒店', pron: 'Jiǔdiàn' },
+      { es: 'Taxi / Llevar a…', local: '请带我去…', pron: 'Qǐng dài wǒ qù…' }
+    ]
+  },
+  {
+    country: 'Tailandés 🇹🇭', cc: 'th', phrases: [
+      { es: 'Hola', local: 'สวัสดี', pron: 'Sawàtdii (kráp/kà)' },
+      { es: 'Gracias', local: 'ขอบคุณ', pron: 'Kòrp kun (kráp/kà)' },
+      { es: '¿Cuánto cuesta?', local: 'ราคาเท่าไหร่?', pron: 'Raakaa tâo rài?' },
+      { es: 'No entiendo', local: 'ไม่เข้าใจ', pron: 'Mâi kâo jai' },
+      { es: 'La cuenta', local: 'เช็คบิล', pron: 'Check bin' },
+      { es: '¿Dónde está…?', local: '…อยู่ที่ไหน?', pron: '…yùu tîi nǎi?' },
+      { es: 'Ayuda', local: 'ช่วยด้วย', pron: 'Chûay dûay' },
+      { es: 'Baño', local: 'ห้องน้ำ', pron: 'Hông náam' },
+      { es: 'Hospital', local: 'โรงพยาบาล', pron: 'Roong payaabaan' },
+      { es: 'No picante', local: 'ไม่เผ็ด', pron: 'Mâi pèt' }
+    ]
+  }
+];
+
+function renderPhrases() {
+  const el = document.getElementById('phrases-grid');
+  el.innerHTML = PHRASES_DATA.map(p => `<div class="phrases-card glass ${p.cc}">
+    <div class="phrases-header">
+      <div class="phrases-country">${p.country}</div>
+    </div>
+    <table class="phrases-table">
+      <thead><tr><th>Español</th><th>Local</th><th>Pronunciación</th></tr></thead>
+      <tbody>${p.phrases.map(ph => `<tr>
+        <td>${ph.es}</td>
+        <td class="phrases-local">${ph.local}</td>
+        <td class="phrases-pron">${ph.pron}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+  </div>`).join('');
+}
+
+// ═══════════════════ TAB SYSTEM ═══════════════════
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.querySelector(`.tab-panel[data-tab="${tabName}"]`);
+  const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Initialize map only when Explorar tab is shown
+  if (tabName === 'explorar' && !window._mapInitialized) {
+    setTimeout(() => { initMap(); window._mapInitialized = true; }, 300);
+  }
+}
+
+function toggleEmergency() {
+  const modal = document.getElementById('emergency-modal');
+  modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+}
+
+// ═══════════════════ CITY EXPLORER ═══════════════════
+const CITY_PHOTOS = {
+  shanghai: { url: 'https://images.unsplash.com/photo-1537531383496-f4749b8032cf?w=800&q=80', credit: 'The Bund skyline' },
+  taipei: { url: 'https://images.unsplash.com/photo-1470004914212-05527e49370b?w=800&q=80', credit: 'Taipei 101' },
+  bangkok1: { url: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80', credit: 'Wat Arun' },
+  krabi: { url: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80', credit: 'Railay Beach' },
+  bangkok2: { url: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80', credit: 'Wat Arun' },
+  xian: { url: 'https://images.unsplash.com/photo-1591122947157-26bad3a117d2?w=800&q=80', credit: 'City Wall' },
+  beijing: { url: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80', credit: 'Forbidden City' }
+};
+
+const CITY_FOOD = {
+  shanghai: [
+    { dish: '小笼包 Xiaolongbao', desc: 'Dumplings al vapor con caldo caliente', must: true, where: 'Din Tai Fung / Jia Jia Tang Bao', price: '~30-50 CNY' },
+    { dish: '生煎包 Shengjian Bao', desc: 'Dumplings fritos crujientes', must: true, where: 'Yang\'s Dumplings', price: '~15 CNY' },
+    { dish: '红烧肉 Hong Shao Rou', desc: 'Cerdo estofado caramelizado', must: false, where: 'Restaurantes locales', price: '~40 CNY' },
+    { dish: '葱油拌面 Scallion Oil Noodles', desc: 'Fideos con aceite de cebolleta', must: false, where: 'Callejones del centro', price: '~12 CNY' },
+    { dish: '蟹黄汤包 Crab Soup Dumpling', desc: 'Dumpling gigante con sopa de cangrejo', must: false, where: 'Nan Xiang', price: '~50 CNY' }
+  ],
+  taipei: [
+    { dish: '牛肉面 Beef Noodle Soup', desc: 'Sopa de fideos con ternera estofada', must: true, where: 'Yong Kang Beef Noodles', price: '~200 TWD' },
+    { dish: 'Bubble Tea 🧋', desc: 'Té con leche y perlas de tapioca', must: true, where: 'Tiger Sugar / 50 Lan', price: '~50-80 TWD' },
+    { dish: 'Gua Bao 刈包', desc: 'Pan taiwanés con cerdo estofado', must: true, where: 'Shilin Night Market', price: '~60 TWD' },
+    { dish: 'Stinky Tofu 臭豆腐', desc: 'Tofu fermentado frito — ¡hay que probarlo!', must: false, where: 'Night markets', price: '~50 TWD' },
+    { dish: 'Pollo frito taiwanés 雞排', desc: 'Filete de pollo gigante empanado', must: false, where: 'Hot Star', price: '~70 TWD' }
+  ],
+  bangkok1: [
+    { dish: 'Pad Thai', desc: 'Fideos salteados con gambas y cacahuete', must: true, where: 'Thip Samai', price: '~80 THB' },
+    { dish: 'Som Tam 🥗', desc: 'Ensalada de papaya verde picante', must: true, where: 'Callejeros', price: '~50 THB' },
+    { dish: 'Tom Yum Kung', desc: 'Sopa picante de langostinos', must: true, where: 'P\' Aor', price: '~100 THB' },
+    { dish: 'Mango Sticky Rice', desc: 'Arroz pegajoso con mango y leche de coco', must: false, where: 'Callejeros / mercados', price: '~60 THB' },
+    { dish: 'Boat Noodles', desc: 'Fideos con caldo intenso (porciones pequeñas)', must: false, where: 'Victory Monument', price: '~20 THB' }
+  ],
+  krabi: [
+    { dish: 'Seafood BBQ 🦐', desc: 'Marisco a la brasa frente al mar', must: true, where: 'Ao Nang seafood restaurants', price: '~300 THB' },
+    { dish: 'Massaman Curry', desc: 'Curry suave con cacahuetes y patata', must: true, where: 'Restaurantes locales', price: '~80 THB' },
+    { dish: 'Roti con plátano', desc: 'Crepe frito con plátano y chocolate', must: false, where: 'Puestos callejeros Ao Nang', price: '~40 THB' },
+    { dish: 'Pad Kra Pao', desc: 'Carne salteada con albahaca y huevo frito', must: false, where: 'Cualquier restaurante', price: '~60 THB' }
+  ],
+  bangkok2: [],
+  xian: [
+    { dish: '肉夹馍 Rou Jia Mo', desc: 'Hamburguesa china con cerdo especiado', must: true, where: 'Muslim Quarter', price: '~15 CNY' },
+    { dish: 'Biang Biang Noodles', desc: 'Fideos anchos con salsa picante', must: true, where: 'Muslim Quarter', price: '~20 CNY' },
+    { dish: '羊肉泡馍 Yang Rou Pao Mo', desc: 'Sopa de cordero con pan desmenuzado', must: false, where: 'Old Sun Family', price: '~35 CNY' },
+    { dish: 'Persimmon Cake 柿子饼', desc: 'Pastel de caqui frito', must: false, where: 'Muslim Quarter', price: '~5 CNY' }
+  ],
+  beijing: [
+    { dish: '北京烤鸭 Pato Pekín', desc: 'Pato laqueado cortado en mesa', must: true, where: 'Da Dong / QuanJuDe', price: '~200 CNY' },
+    { dish: 'Jianbing 煎饼', desc: 'Crepe callejero con huevo, crujiente y salsa', must: true, where: 'Callejeros (mañana)', price: '~8 CNY' },
+    { dish: 'Zhajiang Mian 炸酱面', desc: 'Fideos con salsa de soja y cerdo', must: false, where: 'Noodle houses', price: '~25 CNY' },
+    { dish: 'Hot Pot 火锅', desc: 'Fondue china picante — elige ingredientes', must: true, where: 'Haidilao', price: '~100 CNY' },
+    { dish: 'Tanbingtang Lamb Skewers', desc: 'Brochetas de cordero con comino', must: false, where: 'Wangfujing / callejeros', price: '~10 CNY' }
+  ]
+};
+
+const ESIM_DATA = {
+  provider: 'Holafly',
+  logo: '📶',
+  plans: [
+    { region: 'China', days: '5/10/15/20/30 días', data: 'Datos ilimitados', price: 'Desde 19€', note: '⚠️ VPN INCLUIDA — acceso a Google, WhatsApp, Instagram', url: 'https://www.holafly.com/esim-china' },
+    { region: 'Taiwán', days: '5/10/15/20/30 días', data: 'Datos ilimitados', price: 'Desde 19€', note: '✅ Sin restricciones', url: 'https://www.holafly.com/esim-taiwan' },
+    { region: 'Tailandia', days: '5/10/15/20/30 días', data: 'Datos ilimitados', price: 'Desde 19€', note: '✅ Sin restricciones', url: 'https://www.holafly.com/esim-tailandia' }
+  ],
+  vpn: {
+    china_reason: '🚫 En China están bloqueados: Google, WhatsApp, Instagram, Facebook, YouTube, Gmail',
+    solution: '✅ Holafly China incluye VPN automática — no necesitas configurar nada',
+    backup: 'Como backup: descargar ExpressVPN o NordVPN ANTES de llegar a China',
+    tip: '💡 Descarga offline: Google Maps (mapas), series/películas, música'
+  },
+  steps: [
+    '1️⃣ Comprar eSIM en holafly.com (recibes QR por email)',
+    '2️⃣ Ir a Ajustes → Datos móviles → Añadir plan eSIM',
+    '3️⃣ Escanear QR de Holafly',
+    '4️⃣ Activar eSIM al aterrizar (no antes)',
+    '5️⃣ Mantener SIM española para llamadas/SMS'
+  ]
+};
+
+const APPS_DATA = [
+  { name: 'Holafly', icon: '📶', desc: 'eSIM — gestionar datos', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/holafly-esim/id1498aborto1', category: 'connectivity' },
+  { name: 'WeChat', icon: '💬', desc: 'Mensajería + pagos en China', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/wechat/id414478124', category: 'china' },
+  { name: 'Alipay', icon: '💰', desc: 'Pagos en China (aceptan Visa)', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/alipay/id333206289', category: 'china' },
+  { name: 'Grab', icon: '🚗', desc: 'Uber de Sudeste Asiático (Thai)', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/grab/id647268330', category: 'thailand' },
+  { name: 'Google Translate', icon: '🌐', desc: 'Tradución con cámara offline', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/google-translate/id414706506', category: 'general' },
+  { name: 'Maps.me', icon: '🗺️', desc: 'Mapas offline (backup sin datos)', platform: 'iOS/Android', essential: true, url: 'https://apps.apple.com/app/maps-me/id510623322', category: 'general' },
+  { name: 'MetroMan', icon: '🚇', desc: 'Metro de todas las ciudades asiáticas', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/metroman/id466351020', category: 'transport' },
+  { name: 'XE Currency', icon: '💱', desc: 'Conversor de divisas offline', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/xe-currency/id315241195', category: 'general' },
+  { name: 'DiDi', icon: '🚕', desc: 'Uber de China', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/didi/id554499054', category: 'china' },
+  { name: 'Trip.com', icon: '✈️', desc: 'Gestionar reservas vuelos/hoteles', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/trip-com/id681752345', category: 'general' },
+  { name: 'Foodpanda', icon: '🍔', desc: 'Delivery comida en Tailandia', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/foodpanda/id758103884', category: 'thailand' },
+  { name: 'ExpressVPN', icon: '🔒', desc: 'VPN backup para China', platform: 'iOS/Android', essential: false, url: 'https://apps.apple.com/app/expressvpn/id886492891', category: 'china' }
+];
+
+const SCAM_TIPS = [
+  {
+    city: 'Shanghai', flag: '🇨🇳', tips: [
+      { type: 'scam', title: 'Tea House Scam', desc: 'Chicas te invitan a "practicar inglés" y acaban en un salón de té con cuenta de 500€+. NUNCA aceptar.' },
+      { type: 'scam', title: 'Taxi sin taxímetro', desc: 'Nunca subas a taxi sin taxímetro encendido. Usa DiDi o el metro.' },
+      { type: 'tip', title: 'Pagos', desc: 'Casi nadie acepta efectivo. Configura Alipay/WeChat Pay antes de ir.' },
+      { type: 'tip', title: 'VPN', desc: 'Activar VPN/eSIM Holafly NADA MÁS aterrizar. Sin VPN no hay Google ni WhatsApp.' }
+    ]
+  },
+  {
+    city: 'Taipei', flag: '🇹🇼', tips: [
+      { type: 'tip', title: 'Night Markets', desc: 'Los night markets son seguros. Los precios son fijos, no hace falta regatear.' },
+      { type: 'tip', title: 'EasyCard', desc: 'Comprar EasyCard en 7-Eleven nada más llegar. Sirve para metro, bus, tiendas.' },
+      { type: 'scam', title: 'Taxi al aeropuerto', desc: 'Usa solo taxis del sistema oficial del aeropuerto (cola señalizada).' }
+    ]
+  },
+  {
+    city: 'Bangkok', flag: '🇹🇭', tips: [
+      { type: 'scam', title: 'Tuk-tuk "tours"', desc: 'Tuk-tuks que ofrecen tours gratis te llevan a tiendas donde cobran comisión. Di NO.' },
+      { type: 'scam', title: 'Templo cerrado', desc: '"El templo está cerrado hoy" + te ofrecen alternativa = estafa. Entra directamente.' },
+      { type: 'scam', title: 'Jet ski en playa', desc: 'Te acusan de dañar el jet ski y piden compensación absurda. No alquilar.' },
+      { type: 'tip', title: 'Grab > taxi', desc: 'Siempre Grab. Los taxis a veces no encienden el taxímetro.' },
+      { type: 'tip', title: 'Moneda', desc: '1000 THB ≈ 26€. Los billetes de 1000 son comunes, no te alarmes.' }
+    ]
+  },
+  {
+    city: 'Krabi', flag: '🇹🇭', tips: [
+      { type: 'tip', title: 'Long-tail boats', desc: 'Negociar precio ANTES de subir. Preguntar a varios barqueros.' },
+      { type: 'tip', title: 'Railay Beach', desc: 'Solo accesible por barco. Ir temprano para evitar multitudes.' },
+      { type: 'scam', title: 'Tours carísimos', desc: 'Las agencias de Ao Nang inflan precios. Comparar al menos 3 y regatear.' }
+    ]
+  },
+  {
+    city: "Xi'an", flag: '🇨🇳', tips: [
+      { type: 'tip', title: 'Muslim Quarter', desc: 'La comida callejera es segura y deliciosa. Es la mejor zona gastronómica.' },
+      { type: 'scam', title: 'Terracotta Warriors', desc: 'Tours piratas en la estación de tren. Usa solo el bus oficial (línea 5/306).' },
+      { type: 'tip', title: 'Bici en la muralla', desc: 'Alquilar bici para recorrer la muralla. ~50 CNY/2h.' }
+    ]
+  },
+  {
+    city: 'Beijing', flag: '🇨🇳', tips: [
+      { type: 'scam', title: 'Art student scam', desc: 'Estudiantes te invitan a ver su "exposición de arte" y te presionan para comprar. Ignorar.' },
+      { type: 'scam', title: 'Rickshaw inflado', desc: 'Rickshaws cerca de la Ciudad Prohibida cobran precios absurdos. Negociar o usar metro.' },
+      { type: 'tip', title: 'Gran Muralla', desc: 'Ir a Mutianyu (no Badaling). Menos turistas, más auténtica. Bus o excursión.' },
+      { type: 'tip', title: 'Reservar online', desc: 'Plaza Tiananmen y Ciudad Prohibida requieren reserva previa con pasaporte.' }
+    ]
+  }
+];
+
+function renderCityExplorer() {
+  const el = document.getElementById('city-selector');
+  if (!el) return;
+  // Merge Bangkok entries for display
+  const displayCities = TRIP_DATA.cities.filter(c => c.id !== 'bangkok2');
+
+  el.innerHTML = `<div class="city-cards-scroll">${displayCities.map(c => {
+    const photo = CITY_PHOTOS[c.id] || CITY_PHOTOS.shanghai;
+    return `<div class="city-photo-card" onclick="selectCity('${c.id}')">
+      <img src="${photo.url}" alt="${c.name}" loading="lazy">
+      <div class="city-photo-overlay">
+        <span class="city-photo-flag">${c.flag}</span>
+        <span class="city-photo-name">${c.name}</span>
+        <span class="city-photo-dates">${c.nights} noche${c.nights > 1 ? 's' : ''}</span>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function selectCity(cityId) {
+  const el = document.getElementById('city-detail');
+  if (!el) return;
+  const city = TRIP_DATA.cities.find(c => c.id === cityId);
+  if (!city) return;
+
+  // Highlight selected card
+  document.querySelectorAll('.city-photo-card').forEach(c => c.classList.remove('selected'));
+  document.querySelector(`.city-photo-card[onclick*="${cityId}"]`)?.classList.add('selected');
+
+  const photo = CITY_PHOTOS[cityId] || CITY_PHOTOS.shanghai;
+  const food = CITY_FOOD[cityId] || [];
+  const scams = SCAM_TIPS.find(s => s.city.toLowerCase().includes(city.name.toLowerCase().split(' ')[0]));
+
+  // Find matching flights, hotels
+  const flights = TRIP_DATA.flights.filter(f => {
+    const s = f.segments[0];
+    return s.toCity?.toLowerCase().includes(city.name.toLowerCase().split(' ')[0]) ||
+      s.fromCity?.toLowerCase().includes(city.name.toLowerCase().split(' ')[0]);
+  });
+  const hotels = TRIP_DATA.hotels.filter(h => h.city?.toLowerCase().includes(city.name.toLowerCase().split(' ')[0]));
+
+  el.innerHTML = `
+    <div class="city-detail-banner" style="background-image:url(${photo.url})">
+      <div class="city-detail-banner-overlay">
+        <span class="city-detail-flag">${city.flag}</span>
+        <h3>${city.name}, ${city.country}</h3>
+        <p>${city.nights} noche${city.nights > 1 ? 's' : ''} · ${formatRange(city.start, city.end)}</p>
+      </div>
+    </div>
+    
+    ${flights.length ? `<div class="city-info-block">
+      <h4>✈️ Vuelos</h4>
+      ${flights.map(f => `<div class="city-info-item glass"><strong>${f.label}</strong> · ${f.date} · ${f.segments[0].flight} · <a href="${f.manageUrl}" target="_blank">Gestionar</a></div>`).join('')}
+    </div>` : ''}
+    
+    ${hotels.length ? `<div class="city-info-block">
+      <h4>🏨 Hotel</h4>
+      ${hotels.map(h => `<div class="city-info-item glass"><strong>${h.name}</strong> · ${h.checkIn} → ${h.checkOut} ${h.bookingUrl ? `· <a href="${h.bookingUrl}" target="_blank">Ver reserva</a>` : ''}</div>`).join('')}
+    </div>` : ''}
+    
+    ${food.length ? `<div class="city-info-block">
+      <h4>🍜 Qué comer</h4>
+      <div class="food-cards">${food.map(f => `<div class="food-item glass">
+        <div class="food-name">${f.dish} ${f.must ? '<span class="must-badge">MUST TRY</span>' : ''}</div>
+        <div class="food-desc">${f.desc}</div>
+        <div class="food-meta">📍 ${f.where} · ${f.price}</div>
+      </div>`).join('')}</div>
+    </div>` : ''}
+    
+    ${scams ? `<div class="city-info-block">
+      <h4>⚠️ Tips & Scams</h4>
+      ${scams.tips.map(t => `<div class="tip-item ${t.type} glass">
+        <span class="tip-badge">${t.type === 'scam' ? '🚨 SCAM' : '💡 TIP'}</span>
+        <strong>${t.title}</strong>
+        <p>${t.desc}</p>
+      </div>`).join('')}
+    </div>` : ''}
+  `;
+
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderFoodGuide() {
+  const el = document.getElementById('food-grid');
+  if (!el) return;
+  const allCities = Object.entries(CITY_FOOD).filter(([, foods]) => foods.length > 0);
+  el.innerHTML = allCities.map(([cityId, foods]) => {
+    const city = TRIP_DATA.cities.find(c => c.id === cityId);
+    if (!city) return '';
+    return `<div class="food-city-block">
+      <h3>${city.flag} ${city.name}</h3>
+      <div class="food-cards">${foods.map(f => `<div class="food-item glass">
+        <div class="food-name">${f.dish} ${f.must ? '<span class="must-badge">MUST TRY</span>' : ''}</div>
+        <div class="food-desc">${f.desc}</div>
+        <div class="food-meta">📍 ${f.where} · ${f.price}</div>
+      </div>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderEsimGuide() {
+  const el = document.getElementById('esim-grid');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="esim-provider glass">
+      <div class="esim-header">
+        <span class="esim-logo">${ESIM_DATA.logo}</span>
+        <div>
+          <h3>${ESIM_DATA.provider}</h3>
+          <p>eSIM internacional con datos ilimitados</p>
+        </div>
+      </div>
+      <div class="esim-plans">
+        ${ESIM_DATA.plans.map(p => `<div class="esim-plan glass">
+          <div class="esim-plan-region">${p.region}</div>
+          <div class="esim-plan-details">
+            <span>📅 ${p.days}</span>
+            <span>📊 ${p.data}</span>
+            <span>💰 ${p.price}</span>
+          </div>
+          <div class="esim-plan-note">${p.note}</div>
+          <a href="${p.url}" target="_blank" class="action-btn action-checkin">🛒 Comprar eSIM</a>
+        </div>`).join('')}
+      </div>
+    </div>
+    
+    <div class="vpn-section glass">
+      <h3>🔒 VPN para China</h3>
+      <div class="vpn-alert">${ESIM_DATA.vpn.china_reason}</div>
+      <div class="vpn-solution">${ESIM_DATA.vpn.solution}</div>
+      <div class="vpn-backup">🔄 ${ESIM_DATA.vpn.backup}</div>
+      <div class="vpn-tip">${ESIM_DATA.vpn.tip}</div>
+    </div>
+    
+    <div class="esim-steps glass">
+      <h3>📋 Cómo activar la eSIM</h3>
+      ${ESIM_DATA.steps.map(s => `<div class="esim-step">${s}</div>`).join('')}
+    </div>
+  `;
+}
+
+function renderAppsChecklist() {
+  const el = document.getElementById('apps-grid');
+  if (!el) return;
+  const installed = JSON.parse(localStorage.getItem('apps_installed') || '{}');
+  const categories = { essential: 'Imprescindibles', china: 'Para China', thailand: 'Para Tailandia', transport: 'Transporte', general: 'General' };
+
+  const grouped = {};
+  APPS_DATA.forEach(a => {
+    const cat = a.essential ? 'essential' : a.category;
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(a);
+  });
+
+  el.innerHTML = Object.entries(grouped).map(([cat, apps]) => `
+    <div class="apps-category">
+      <h3>${categories[cat] || cat}</h3>
+      ${apps.map(a => `<div class="app-item glass ${installed[a.name] ? 'installed' : ''}">
+        <label class="app-check">
+          <input type="checkbox" ${installed[a.name] ? 'checked' : ''} onchange="toggleApp('${a.name}', this.checked)">
+          <span class="app-icon">${a.icon}</span>
+          <div class="app-info">
+            <strong>${a.name}</strong>
+            <span>${a.desc}</span>
+          </div>
+        </label>
+        <a href="${a.url}" target="_blank" class="app-download">⬇️</a>
+      </div>`).join('')}
+    </div>
+  `).join('');
+}
+
+function toggleApp(name, checked) {
+  const installed = JSON.parse(localStorage.getItem('apps_installed') || '{}');
+  installed[name] = checked;
+  localStorage.setItem('apps_installed', JSON.stringify(installed));
+  renderAppsChecklist();
+}
+
+function renderScamTips() {
+  const el = document.getElementById('tips-grid');
+  if (!el) return;
+  el.innerHTML = SCAM_TIPS.map(s => `
+    <div class="scam-city-block">
+      <h3>${s.flag} ${s.city}</h3>
+      ${s.tips.map(t => `<div class="tip-item ${t.type} glass">
+        <span class="tip-badge">${t.type === 'scam' ? '🚨 SCAM' : '💡 TIP'}</span>
+        <strong>${t.title}</strong>
+        <p>${t.desc}</p>
+      </div>`).join('')}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════ INIT ═══════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  renderTimeline();
+  renderStats();
+  renderWeather();
+  renderTimezones();
+  renderFlights();
+  renderHotels();
+  renderActivities();
+  renderMetro();
+  fetchExchangeRates();
+  renderAgenda();
+  renderPacking();
+  renderTransport();
+  renderCheckinAlerts();
+  renderVault();
+  renderExpenses();
+  renderBucketList();
+  renderEmergency();
+  renderPhrases();
+  renderTodos();
+  renderBudget();
+  renderCityExplorer();
+  renderFoodGuide();
+  renderEsimGuide();
+  renderAppsChecklist();
+  renderScamTips();
+
+  // PWA Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => { });
+  }
+});

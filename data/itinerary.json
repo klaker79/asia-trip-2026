@@ -1,0 +1,665 @@
+{
+  "trip": {
+    "name": "Asia Trip 2026",
+    "startDate": "2026-03-12",
+    "endDate": "2026-04-08",
+    "totalDays": 27,
+    "travelers": [
+      {
+        "name": "Iker Fernandez Caballero",
+        "dob": "1979-06-18",
+        "role": "main"
+      },
+      {
+        "name": "Xo Anais Moragon Garcia",
+        "role": "companion"
+      }
+    ]
+  },
+  "cities": [
+    {
+      "id": "shanghai",
+      "name": "Shanghai",
+      "country": "China",
+      "countryCode": "CN",
+      "flag": "🇨🇳",
+      "dates": {
+        "start": "2026-03-13",
+        "end": "2026-03-16"
+      },
+      "nights": 3,
+      "timezone": "Asia/Shanghai",
+      "utcOffset": "+08:00",
+      "coordinates": {
+        "lat": 31.2304,
+        "lng": 121.4737
+      }
+    },
+    {
+      "id": "taipei",
+      "name": "Taipei",
+      "country": "Taiwan",
+      "countryCode": "TW",
+      "flag": "🇹🇼",
+      "dates": {
+        "start": "2026-03-16",
+        "end": "2026-03-19"
+      },
+      "nights": 3,
+      "timezone": "Asia/Taipei",
+      "utcOffset": "+08:00",
+      "coordinates": {
+        "lat": 25.033,
+        "lng": 121.5654
+      }
+    },
+    {
+      "id": "bangkok-1",
+      "name": "Bangkok",
+      "country": "Thailand",
+      "countryCode": "TH",
+      "flag": "🇹🇭",
+      "dates": {
+        "start": "2026-03-19",
+        "end": "2026-03-20"
+      },
+      "nights": 1,
+      "timezone": "Asia/Bangkok",
+      "utcOffset": "+07:00",
+      "coordinates": {
+        "lat": 13.7563,
+        "lng": 100.5018
+      },
+      "note": "Transit stop"
+    },
+    {
+      "id": "krabi",
+      "name": "Krabi / Ao Nang",
+      "country": "Thailand",
+      "countryCode": "TH",
+      "flag": "🇹🇭",
+      "dates": {
+        "start": "2026-03-20",
+        "end": "2026-03-29"
+      },
+      "nights": 9,
+      "timezone": "Asia/Bangkok",
+      "utcOffset": "+07:00",
+      "coordinates": {
+        "lat": 8.0363,
+        "lng": 98.8362
+      },
+      "note": "Beach paradise 🏖️"
+    },
+    {
+      "id": "bangkok-2",
+      "name": "Bangkok",
+      "country": "Thailand",
+      "countryCode": "TH",
+      "flag": "🇹🇭",
+      "dates": {
+        "start": "2026-03-29",
+        "end": "2026-03-30"
+      },
+      "nights": 1,
+      "timezone": "Asia/Bangkok",
+      "utcOffset": "+07:00",
+      "coordinates": {
+        "lat": 13.7563,
+        "lng": 100.5018
+      },
+      "note": "Transit stop"
+    },
+    {
+      "id": "xian",
+      "name": "Xi'an",
+      "country": "China",
+      "countryCode": "CN",
+      "flag": "🇨🇳",
+      "dates": {
+        "start": "2026-03-31",
+        "end": "2026-04-02"
+      },
+      "nights": 2,
+      "timezone": "Asia/Shanghai",
+      "utcOffset": "+08:00",
+      "coordinates": {
+        "lat": 34.3416,
+        "lng": 108.9398
+      },
+      "note": "Terracotta Warriors 🏛️"
+    },
+    {
+      "id": "beijing",
+      "name": "Beijing (Pekín)",
+      "country": "China",
+      "countryCode": "CN",
+      "flag": "🇨🇳",
+      "dates": {
+        "start": "2026-04-02",
+        "end": "2026-04-07"
+      },
+      "nights": 5,
+      "timezone": "Asia/Shanghai",
+      "utcOffset": "+08:00",
+      "coordinates": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "note": "Great Wall, Forbidden City 🏯"
+    }
+  ],
+  "flights": [
+    {
+      "id": "flight-1",
+      "label": "Madrid → Shanghai",
+      "segments": [
+        {
+          "date": "2026-03-12",
+          "departureTime": "10:25",
+          "arrivalTime": "05:00+1",
+          "origin": {
+            "code": "MAD",
+            "name": "Adolfo Suárez Madrid-Barajas",
+            "city": "Madrid"
+          },
+          "destination": {
+            "code": "CKG",
+            "name": "Chongqing Jiangbei International Airport",
+            "city": "Chongqing"
+          },
+          "flight": "HU728",
+          "airline": "Hainan Airlines",
+          "duration": "11h 35min",
+          "durationMinutes": 695,
+          "class": "Turista",
+          "seats": "58E, 58G"
+        },
+        {
+          "date": "2026-03-13",
+          "departureTime": "07:55",
+          "arrivalTime": "10:30",
+          "origin": {
+            "code": "CKG",
+            "name": "Chongqing Jiangbei International Airport",
+            "city": "Chongqing"
+          },
+          "destination": {
+            "code": "PVG",
+            "name": "Shanghai Pudong International Airport",
+            "city": "Shanghai"
+          },
+          "flight": "HU7494",
+          "airline": "Hainan Airlines",
+          "duration": "2h 35min",
+          "durationMinutes": 155,
+          "class": "Turista",
+          "seats": "43B, 43C"
+        }
+      ],
+      "layover": {
+        "airport": "CKG",
+        "duration": "2h 55min",
+        "durationMinutes": 175
+      },
+      "reference": "NKX5J4",
+      "platform": "Booking.com",
+      "status": "confirmed"
+    },
+    {
+      "id": "flight-2",
+      "label": "Shanghai → Taipei",
+      "segments": [
+        {
+          "date": "2026-03-16",
+          "departureTime": "08:25",
+          "arrivalTime": "10:30",
+          "origin": {
+            "code": "PVG",
+            "name": "Shanghai Pudong International T2",
+            "city": "Shanghai"
+          },
+          "destination": {
+            "code": "TPE",
+            "name": "Taiwan Taoyuan International T1",
+            "city": "Taipei"
+          },
+          "flight": "9C8951",
+          "airline": "Spring Airlines",
+          "aircraft": "Airbus A320",
+          "duration": "2h 5min",
+          "durationMinutes": 125,
+          "class": "Turista"
+        }
+      ],
+      "reference": "1433808606921603",
+      "price": {
+        "amount": 136.74,
+        "currency": "EUR"
+      },
+      "status": "confirmed"
+    },
+    {
+      "id": "flight-3",
+      "label": "Taipei → Bangkok",
+      "segments": [
+        {
+          "date": "2026-03-19",
+          "departureTime": "18:35",
+          "arrivalTime": "21:30",
+          "origin": {
+            "code": "TPE",
+            "name": "Taipei Terminal 1",
+            "city": "Taipei"
+          },
+          "destination": {
+            "code": "DMK",
+            "name": "Don Mueang International Airport",
+            "city": "Bangkok"
+          },
+          "flight": "FD231",
+          "airline": "Thai AirAsia",
+          "duration": "3h 55min",
+          "durationMinutes": 235,
+          "class": "Economy"
+        }
+      ],
+      "reference": "IHI3HH",
+      "status": "confirmed"
+    },
+    {
+      "id": "flight-4",
+      "label": "Bangkok → Krabi",
+      "segments": [
+        {
+          "date": "2026-03-20",
+          "departureTime": "07:05",
+          "arrivalTime": "08:30",
+          "origin": {
+            "code": "BKK",
+            "name": "Suvarnabhumi Airport",
+            "city": "Bangkok"
+          },
+          "destination": {
+            "code": "KBV",
+            "name": "Krabi International Airport",
+            "city": "Krabi"
+          },
+          "flight": "VZ340",
+          "airline": "Thai VietJet Air",
+          "duration": "1h 25min",
+          "durationMinutes": 85,
+          "class": "Turista"
+        }
+      ],
+      "reference": "4Z44R2",
+      "platform": "Booking.com",
+      "status": "confirmed"
+    },
+    {
+      "id": "flight-5",
+      "label": "Krabi → Bangkok",
+      "segments": [
+        {
+          "date": "2026-03-29",
+          "departureTime": "10:50",
+          "arrivalTime": "12:10",
+          "origin": {
+            "code": "KBV",
+            "name": "Aeropuerto Internacional de Krabi",
+            "city": "Krabi"
+          },
+          "destination": {
+            "code": "DMK",
+            "name": "Don Mueang International Airport T2",
+            "city": "Bangkok"
+          },
+          "flight": "FD3230",
+          "airline": "Thai AirAsia",
+          "duration": "1h 20min",
+          "durationMinutes": 80
+        }
+      ],
+      "reference": {
+        "iker": "NGUN2K",
+        "anais": "PDVV9G"
+      },
+      "reservationId": "735091764",
+      "status": "confirmed"
+    },
+    {
+      "id": "flight-6",
+      "label": "Bangkok → Xi'an",
+      "segments": [
+        {
+          "date": "2026-03-30",
+          "departureTime": "20:00",
+          "arrivalTime": "00:35+1",
+          "origin": {
+            "code": "DMK",
+            "name": "Don Mueang International Airport",
+            "city": "Bangkok"
+          },
+          "destination": {
+            "code": "XIY",
+            "name": "Xi'an Xianyang International Airport",
+            "city": "Xi'an"
+          },
+          "flight": "SL950",
+          "airline": "Thai Lion Air",
+          "duration": "3h 35min",
+          "durationMinutes": 215,
+          "class": "Turista"
+        }
+      ],
+      "reference": "OHSEFR",
+      "platform": "Booking.com",
+      "status": "confirmed"
+    },
+    {
+      "id": "train-1",
+      "type": "bullet-train",
+      "label": "Xi'an → Beijing (Tren Bala)",
+      "estimatedDate": "2026-04-02",
+      "origin": {
+        "city": "Xi'an",
+        "country": "China"
+      },
+      "destination": {
+        "city": "Beijing",
+        "country": "China"
+      },
+      "estimatedDuration": "4h 30min",
+      "estimatedDurationMinutes": 270,
+      "note": "Billetes no disponibles aún — comprar cuando se abra la venta",
+      "status": "pending"
+    },
+    {
+      "id": "flight-8",
+      "label": "Beijing → Madrid",
+      "segments": [
+        {
+          "date": "2026-04-07",
+          "departureTime": "14:15",
+          "arrivalTime": "18:40",
+          "origin": {
+            "code": "PKX",
+            "name": "Pekín Daxing International",
+            "city": "Beijing"
+          },
+          "destination": {
+            "code": "AMS",
+            "name": "Amsterdam Schiphol",
+            "city": "Amsterdam"
+          },
+          "flight": "CZ0345",
+          "airline": "China Southern Airlines",
+          "duration": "10h 25min",
+          "durationMinutes": 625,
+          "class": "Turista",
+          "pnr": "NKZ9RH"
+        },
+        {
+          "date": "2026-04-08",
+          "departureTime": "07:20",
+          "arrivalTime": "10:05",
+          "origin": {
+            "code": "AMS",
+            "name": "Amsterdam Schiphol",
+            "city": "Amsterdam"
+          },
+          "destination": {
+            "code": "MAD",
+            "name": "Adolfo Suárez Barajas T4",
+            "city": "Madrid"
+          },
+          "flight": "IB0740",
+          "airline": "Iberia",
+          "duration": "2h 45min",
+          "durationMinutes": 165,
+          "class": "Turista",
+          "pnr": "JJMFL"
+        }
+      ],
+      "layover": {
+        "airport": "AMS",
+        "duration": "12h 40min",
+        "durationMinutes": 760
+      },
+      "assistancePNR": "76DDIU",
+      "baggage": {
+        "iker": "1x bolso pequeño 40x30x15 cm"
+      },
+      "status": "confirmed"
+    }
+  ],
+  "hotels": [
+    {
+      "id": "hotel-1",
+      "name": "Shanghai Yuhang Hotel",
+      "city": "Shanghai",
+      "cityId": "shanghai",
+      "checkIn": "2026-03-13T14:00",
+      "checkOut": "2026-03-16T00:00",
+      "nights": 3,
+      "address": "No. 4, 525 Sichuan North Road, Shanghai, China, 200085",
+      "phone": "+86 21 6357 5700",
+      "bookingId": "623036703",
+      "platform": "Agoda",
+      "coordinates": {
+        "lat": 31.2532,
+        "lng": 121.4838
+      },
+      "status": "confirmed"
+    },
+    {
+      "id": "hotel-2",
+      "name": "Pendiente",
+      "city": "Taipei",
+      "cityId": "taipei",
+      "checkIn": "2026-03-16",
+      "checkOut": "2026-03-19",
+      "nights": 3,
+      "status": "pending",
+      "note": "POR COMPRAR"
+    },
+    {
+      "id": "hotel-3",
+      "name": "Cozy Blu Suvarnabhumi",
+      "city": "Bangkok",
+      "cityId": "bangkok-1",
+      "checkIn": "2026-03-19T14:00",
+      "checkOut": "2026-03-20T12:00",
+      "nights": 1,
+      "address": "PP58+GMF, Racha Thewa 10540, Samut Prakan, Thailand",
+      "phone": "+66-0622864685",
+      "roomType": "Habitación doble Deluxe",
+      "bed": "1 cama doble extragrande",
+      "breakfast": true,
+      "breakfastDate": "2026-03-20",
+      "price": {
+        "amount": 24.02,
+        "currency": "EUR",
+        "includes": "Tasa servicio 2.18€ + IVA 1.43€"
+      },
+      "bookingId": "1433808998812884",
+      "pin": "2100",
+      "reservationId": "1433808998811478",
+      "freeCancellationBefore": "2026-03-18T23:59",
+      "platform": "Trip.com",
+      "status": "confirmed"
+    },
+    {
+      "id": "hotel-4",
+      "name": "Ao Nang Goodwill Hotel",
+      "nameLocal": "โรงแรมอ่าวนาง กู๊ดวิลล์",
+      "city": "Krabi / Ao Nang",
+      "cityId": "krabi",
+      "checkIn": "2026-03-20T14:00",
+      "checkOut": "2026-03-29T12:00",
+      "nights": 9,
+      "address": "420/22 Moo2, Ao Nang, Muang, Ao Nang 81180, Krabi, Thailand",
+      "bookingId": "1433808635810197",
+      "services": [
+        "Recepción 24h",
+        "Servicio de traslado disponible"
+      ],
+      "funFact": "Prohibido traer durian al hotel 🍈",
+      "platform": "Trip.com",
+      "coordinates": {
+        "lat": 8.0363,
+        "lng": 98.8362
+      },
+      "status": "confirmed"
+    },
+    {
+      "id": "hotel-5",
+      "name": "Hotel Bangkok (Chakrabongse Rd)",
+      "city": "Bangkok",
+      "cityId": "bangkok-2",
+      "checkIn": "2026-03-29T14:00",
+      "checkOut": "2026-03-30T12:00",
+      "nights": 1,
+      "address": "33-35 Chakrabongse Rd, Phra Nakhon 10200, Bangkok, Thailand",
+      "bookingId": "1433808990611730",
+      "deposit": {
+        "amount": 500,
+        "currency": "THB"
+      },
+      "services": [
+        "Recepción 24h"
+      ],
+      "transferAvailable": false,
+      "platform": "Trip.com",
+      "coordinates": {
+        "lat": 13.7429,
+        "lng": 100.4914
+      },
+      "status": "confirmed"
+    },
+    {
+      "id": "hotel-6",
+      "name": "Hotel Xi'an (datos pendientes)",
+      "city": "Xi'an",
+      "cityId": "xian",
+      "checkIn": "2026-03-31",
+      "checkOut": "2026-04-02",
+      "nights": 2,
+      "status": "confirmed",
+      "note": "Cogido pero sin datos compartidos"
+    },
+    {
+      "id": "hotel-7",
+      "name": "Pendiente",
+      "city": "Beijing",
+      "cityId": "beijing",
+      "checkIn": "2026-04-02",
+      "checkOut": "2026-04-07",
+      "nights": 5,
+      "status": "pending",
+      "note": "POR COMPRAR"
+    }
+  ],
+  "activities": [
+    {
+      "id": "activity-1",
+      "name": "Plaza de Tiananmén",
+      "city": "Beijing",
+      "cityId": "beijing",
+      "date": "2026-04-04",
+      "status": "confirmed",
+      "ticketsPurchased": true,
+      "icon": "🏛️"
+    },
+    {
+      "id": "activity-2",
+      "name": "Guerreros de Terracota",
+      "city": "Xi'an",
+      "cityId": "xian",
+      "date": null,
+      "status": "planned",
+      "ticketsPurchased": false,
+      "icon": "🗿"
+    },
+    {
+      "id": "activity-3",
+      "name": "Gran Muralla China",
+      "city": "Beijing",
+      "cityId": "beijing",
+      "date": null,
+      "status": "planned",
+      "ticketsPurchased": false,
+      "icon": "🏔️"
+    },
+    {
+      "id": "activity-4",
+      "name": "Ciudad Prohibida",
+      "city": "Beijing",
+      "cityId": "beijing",
+      "date": null,
+      "status": "planned",
+      "ticketsPurchased": false,
+      "icon": "🏯"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "task": "Comprar hotel Taipei (16-19 Mar, 3 noches)",
+      "category": "hotel",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": 2,
+      "task": "Comprar hotel Beijing (2-7 Abr, 5 noches)",
+      "category": "hotel",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": 3,
+      "task": "Compartir datos hotel Xi'an (captura pendiente)",
+      "category": "hotel",
+      "priority": "medium",
+      "done": false
+    },
+    {
+      "id": 4,
+      "task": "Comprar billetes tren bala Xi'an → Beijing",
+      "category": "transport",
+      "priority": "high",
+      "done": false,
+      "note": "No disponibles aún"
+    },
+    {
+      "id": 5,
+      "task": "Registrar todos los costes",
+      "category": "budget",
+      "priority": "low",
+      "done": false
+    },
+    {
+      "id": 6,
+      "task": "Revisar equipaje permitido por aerolínea",
+      "category": "logistics",
+      "priority": "medium",
+      "done": false
+    }
+  ],
+  "budget": {
+    "tracked": [
+      {
+        "concept": "Vuelo Shanghai → Taipei",
+        "amount": 136.74,
+        "currency": "EUR"
+      },
+      {
+        "concept": "Hotel Cozy Blu Suvarnabhumi (1 noche)",
+        "amount": 24.02,
+        "currency": "EUR"
+      }
+    ],
+    "totalTrackedEUR": 160.76
+  }
+}

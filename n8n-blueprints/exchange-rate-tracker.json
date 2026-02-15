@@ -1,0 +1,147 @@
+{
+    "name": "Asia Trip — Exchange Rate Tracker",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "hoursInterval": 6
+                        }
+                    ]
+                }
+            },
+            "name": "Every 6 Hours",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://api.frankfurter.app/latest?from=EUR&to=CNY,TWD,THB",
+                "responseFormat": "json",
+                "options": {}
+            },
+            "name": "Fetch Rates",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                470,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "const data = $input.first().json;\nconst now = new Date().toISOString();\n\nreturn [{\n  json: {\n    timestamp: now,\n    base: data.base || 'EUR',\n    date: data.date,\n    CNY: data.rates?.CNY || null,\n    TWD: data.rates?.TWD || null,\n    THB: data.rates?.THB || null,\n    CNY_for_100EUR: data.rates?.CNY ? (100 * data.rates.CNY).toFixed(2) : null,\n    TWD_for_100EUR: data.rates?.TWD ? (100 * data.rates.TWD).toFixed(2) : null,\n    THB_for_100EUR: data.rates?.THB ? (100 * data.rates.THB).toFixed(2) : null\n  }\n}];"
+            },
+            "name": "Format Data",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                690,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "YOUR_GOOGLE_SHEET_ID"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "mode": "name",
+                    "value": "ExchangeRates"
+                },
+                "columns": {
+                    "mappingMode": "autoMapInputData",
+                    "value": {}
+                },
+                "options": {}
+            },
+            "name": "Save to Google Sheets",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.5,
+            "position": [
+                910,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "chatId": "676387586",
+                "text": "=💱 *Tasas del día* ({{ $json.date }})\n\n🇨🇳 CNY: {{ $json.CNY }} (100€ = ¥{{ $json.CNY_for_100EUR }})\n🇹🇼 TWD: {{ $json.TWD }} (100€ = NT${{ $json.TWD_for_100EUR }})\n🇹🇭 THB: {{ $json.THB }} (100€ = ฿{{ $json.THB_for_100EUR }})",
+                "additionalFields": {
+                    "parse_mode": "Markdown"
+                }
+            },
+            "name": "Send Telegram Alert",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [
+                910,
+                400
+            ]
+        }
+    ],
+    "connections": {
+        "Every 6 Hours": {
+            "main": [
+                [
+                    {
+                        "node": "Fetch Rates",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Fetch Rates": {
+            "main": [
+                [
+                    {
+                        "node": "Format Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Format Data": {
+            "main": [
+                [
+                    {
+                        "node": "Save to Google Sheets",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Send Telegram Alert",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "meta": {
+        "description": "Tracks EUR→CNY/TWD/THB exchange rates every 6 hours, saves to Google Sheets, and sends Telegram alerts.",
+        "setup": [
+            "1. Create a Google Sheet with columns: timestamp, base, date, CNY, TWD, THB, CNY_for_100EUR, TWD_for_100EUR, THB_for_100EUR",
+            "2. Replace YOUR_GOOGLE_SHEET_ID with your Sheet ID",
+            "3. Connect your Google Sheets credentials in n8n",
+            "4. Create a Telegram bot via @BotFather and replace YOUR_TELEGRAM_CHAT_ID",
+            "5. Connect your Telegram credentials in n8n",
+            "6. Activate the workflow"
+        ]
+    }
+}

@@ -1,0 +1,115 @@
+{
+    "name": "✈️ Alerta Check-in Telegram",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "hoursInterval": 12
+                        }
+                    ]
+                }
+            },
+            "name": "Cada 12 horas",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "// Vuelos con fechas y ventanas de check-in\nconst flights = [\n  { label: 'Madrid → Shanghai', date: '2026-03-12', ref: 'NKX5J4', airline: 'Hainan Airlines', checkinHours: 24, url: 'https://www.hainanairlines.com/builder/GoPage?type=manage' },\n  { label: 'Shanghai → Taipei', date: '2026-03-16', ref: '1433808606921603', airline: 'Spring Airlines', checkinHours: 24, url: 'https://flights.ch.spring.com/OrderSearch' },\n  { label: 'Taipei → Bangkok', date: '2026-03-19', ref: 'IHI3HH', airline: 'Thai AirAsia', checkinHours: 336, url: 'https://www.airasia.com/check-in/en/gb?bookingId=IHI3HH' },\n  { label: 'Bangkok → Krabi', date: '2026-03-20', ref: '4Z44R2', airline: 'Thai VietJet', checkinHours: 24, url: 'https://www.vietjetair.com/en/manage-booking' },\n  { label: 'Krabi → Bangkok', date: '2026-03-29', ref: 'NGUN2K', airline: 'Thai AirAsia', checkinHours: 336, url: 'https://www.airasia.com/check-in/en/gb?bookingId=NGUN2K' },\n  { label: 'Bangkok → Xi\\'an', date: '2026-03-30', ref: 'OHSEFR', airline: 'Thai Lion Air', checkinHours: 24, url: 'https://www.lionairthai.com/en/manage-booking' },\n  { label: 'Beijing → Madrid', date: '2026-04-07', ref: 'NKZ9RH / JJMFL', airline: 'China Southern + Iberia', checkinHours: 24, url: 'https://www.iberia.com/es/gestionar-reserva/' }\n];\n\nconst now = new Date();\nconst alerts = [];\n\nfor (const f of flights) {\n  const flightDate = new Date(f.date + 'T00:00:00');\n  const hoursUntilFlight = (flightDate - now) / (1000 * 60 * 60);\n  const hoursUntilCheckin = hoursUntilFlight - f.checkinHours;\n  \n  // Alert when check-in opens (within 12h window) or 24h before flight\n  if (hoursUntilCheckin <= 12 && hoursUntilCheckin > -12) {\n    alerts.push({ ...f, type: 'checkin_open', hoursUntilFlight: Math.round(hoursUntilFlight) });\n  } else if (hoursUntilFlight <= 24 && hoursUntilFlight > 0) {\n    alerts.push({ ...f, type: 'flight_tomorrow', hoursUntilFlight: Math.round(hoursUntilFlight) });\n  }\n}\n\nreturn alerts.map(a => ({ json: a }));"
+            },
+            "name": "Comprobar vuelos",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.label }}",
+                            "operation": "isNotEmpty"
+                        }
+                    ]
+                }
+            },
+            "name": "¿Hay alertas?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "chatId": "676387586",
+                "text": "={{ $json.type === 'checkin_open' ? '✅ ¡CHECK-IN ABIERTO!' : '⚠️ ¡Vuelo mañana!' }}\n\n✈️ {{ $json.label }}\n🏢 {{ $json.airline }}\n📋 Ref: {{ $json.ref }}\n⏰ En {{ $json.hoursUntilFlight }}h\n\n🔗 {{ $json.url }}",
+                "additionalFields": {
+                    "parse_mode": "Markdown"
+                }
+            },
+            "name": "Enviar Telegram",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1,
+            "position": [
+                900,
+                280
+            ],
+            "credentials": {
+                "telegramApi": {
+                    "id": "CONFIGURAR",
+                    "name": "Telegram Bot"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Cada 12 horas": {
+            "main": [
+                [
+                    {
+                        "node": "Comprobar vuelos",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Comprobar vuelos": {
+            "main": [
+                [
+                    {
+                        "node": "¿Hay alertas?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "¿Hay alertas?": {
+            "main": [
+                [
+                    {
+                        "node": "Enviar Telegram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}
