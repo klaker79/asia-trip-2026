@@ -110,6 +110,17 @@
     <!-- ────── TAB 1: DASHBOARD ────── -->
     <div class="tab-panel active" data-tab="dashboard">
 
+      <!-- TODAY VIEW -->
+      <section id="today">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(16,185,129,0.1)">📍</div>
+            <h2 class="section-title">Hoy</h2>
+          </div>
+          <div id="today-view"></div>
+        </div>
+      </section>
+
       <!-- AGENDA -->
       <section id="agenda">
         <div class="container">
@@ -205,6 +216,28 @@
             <h2 class="section-title">Itinerario día a día</h2>
           </div>
           <div id="itinerary-grid"></div>
+        </div>
+      </section>
+
+      <!-- CHEAT SHEETS -->
+      <section id="cheatsheets">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(245,158,11,0.1)">📋</div>
+            <h2 class="section-title">Cheat Sheet por ciudad</h2>
+          </div>
+          <div id="cheatsheet-grid"></div>
+        </div>
+      </section>
+
+      <!-- PHOTO SPOTS -->
+      <section id="photospots">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(139,92,246,0.1)">📸</div>
+            <h2 class="section-title">Mejores fotos</h2>
+          </div>
+          <div id="photospots-grid"></div>
         </div>
       </section>
 
@@ -443,6 +476,8 @@
   <!-- Data files (load first — no dependencies) -->
   <script src="js/data/trip.js"></script>
   <script src="js/data/itinerary.js"></script>
+  <script src="js/data/cheatsheets.js"></script>
+  <script src="js/data/photospots.js"></script>
   <script src="js/data/guides.js"></script>
   <script src="js/data/transport.js"></script>
   <script src="js/data/reference.js"></script>
@@ -460,6 +495,9 @@
   <script src="js/components/prepare.js"></script>
   <script src="js/components/explore.js"></script>
   <script src="js/components/itinerary.js"></script>
+  <script src="js/components/today.js"></script>
+  <script src="js/components/cheatsheets.js"></script>
+  <script src="js/components/photospots.js"></script>
 
   <!-- App orchestrator (init + tab system) -->
   <script src="app.js"></script>

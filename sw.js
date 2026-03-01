@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asia-trip-v4';
+const CACHE_NAME = 'asia-trip-v7';
 const ASSETS = [
     './',
     './index.html',
@@ -10,6 +10,8 @@ const ASSETS = [
     './js/setup.js',
     './js/data/trip.js',
     './js/data/itinerary.js',
+    './js/data/cheatsheets.js',
+    './js/data/photospots.js',
     './js/data/guides.js',
     './js/data/transport.js',
     './js/data/reference.js',
@@ -23,6 +25,9 @@ const ASSETS = [
     './js/components/prepare.js',
     './js/components/explore.js',
     './js/components/itinerary.js',
+    './js/components/today.js',
+    './js/components/cheatsheets.js',
+    './js/components/photospots.js',
     './icon-192.png',
     './icon-512.png'
 ];

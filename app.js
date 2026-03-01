@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHotels();
   renderActivities();
   renderMetro();
+  renderToday();
   fetchExchangeRates();
   renderAgenda();
   renderPacking();
@@ -71,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderExpenses();
   renderBucketList();
   renderItinerary();
+  renderCheatSheets();
+  renderPhotoSpots();
   renderEmergency();
   renderPhrases();
   renderTodos();
