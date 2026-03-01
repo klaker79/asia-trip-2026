@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asia-trip-v3';
+const CACHE_NAME = 'asia-trip-v4';
 const ASSETS = [
     './',
     './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
     './css/setup.css',
     './js/setup.js',
     './js/data/trip.js',
+    './js/data/itinerary.js',
     './js/data/guides.js',
     './js/data/transport.js',
     './js/data/reference.js',
@@ -21,6 +22,7 @@ const ASSETS = [
     './js/components/finance.js',
     './js/components/prepare.js',
     './js/components/explore.js',
+    './js/components/itinerary.js',
     './icon-192.png',
     './icon-512.png'
 ];

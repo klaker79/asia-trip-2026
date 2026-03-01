@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderVault();
   renderExpenses();
   renderBucketList();
+  renderItinerary();
   renderEmergency();
   renderPhrases();
   renderTodos();
